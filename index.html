@@ -47,7 +47,7 @@
 
     /* FLASHCARDS */
     .vocab-section { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 25px; margin-bottom: 40px; }
-    .flip-card { background: transparent; height: 220px; perspective: 1000px; cursor: pointer; }
+    .flip-card { background: transparent; height: 230px; perspective: 1000px; cursor: pointer; }
     .flip-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d; }
     .flip-card.flipped .flip-inner { transform: rotateY(180deg); }
     .flip-front, .flip-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: var(--radius); box-shadow: var(--shadow); background: var(--bg-card); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 15px; text-align: center; transition: var(--transition); border: 2px solid transparent; }
@@ -57,7 +57,10 @@
     .sound-btn:hover { background: var(--primary-light); color: #fff; transform: scale(1.1); }
     
     .flip-back { transform: rotateY(180deg); justify-content: flex-start; background: #f8fafc; }
-    .flip-back img { width: 100%; height: 110px; object-fit: cover; border-radius: 12px; margin-bottom: 10px; }
+    
+    /* EMOJI IMAGE STYLE (Bulletproof in Russia) */
+    .emoji-img { width: 100%; height: 110px; background: linear-gradient(135deg, #dcfce7, #bbf7d0); border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: center; align-items: center; font-size: 3.5rem; box-shadow: inset 0 2px 5px rgba(22, 101, 52, 0.05); }
+    
     .flip-back .vocab-trans { font-size: 1.15rem; font-weight: 800; color: var(--primary); margin-bottom: 5px; }
     .flip-back .vocab-pron { font-size: 0.95rem; color: var(--text-muted); font-style: italic; }
 
@@ -91,8 +94,8 @@
       nav a { padding: 10px 15px; font-size: 0.95rem; }
       .container { padding: 20px 15px; }
       .vocab-section { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
-      .flip-card { height: 180px; }
-      .flip-back img { height: 80px; }
+      .flip-card { height: 210px; }
+      .emoji-img { height: 80px; font-size: 2.5rem; }
       .flip-front strong { font-size: 1.1rem; }
       .task-block { padding: 20px 15px; }
     }
@@ -116,7 +119,7 @@
     <p style="color: var(--text-muted); font-weight: 600; margin-bottom: 25px;">Click the 🔊 to listen (British). Click the card to flip and see the translation & photo.</p>
     <div class="vocab-section" id="flashcards"></div>
 
-    <!-- NEW: VOCABULARY IN CONTEXT -->
+    <!-- VOCABULARY IN CONTEXT -->
     <h2>🧩 Vocabulary in Context</h2>
     <div class="task-block">
       <div class="rule-box">Type the correct word from the flashcards into the gaps.</div>
@@ -289,7 +292,9 @@
       
       <div class="question">
         1. Look at the photo. What ecosystem is this?<br>
-        <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?q=80&w=400" style="border-radius:12px; margin: 10px 0; max-width: 100%; height: auto;">
+        <!-- Emoji image container instead of external URL -->
+        <div class="emoji-img" style="height: 140px; font-size: 4rem; margin: 15px 0; background: linear-gradient(135deg, #86efac, #22c55e); color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">🌴🦜🌧️</div>
+        
         <div class="input-group">
           <input type="text" id="fin1" placeholder="...">
           <button class="action-btn" onclick="checkAnswer('fin1', 'tropical rainforest')">Answer</button>
@@ -328,7 +333,6 @@ function showPage(n) {
     const el = document.getElementById(id);
     if(i === n) {
       el.classList.remove("hidden");
-      // Retrigger animation
       el.classList.remove("fade-in");
       void el.offsetWidth;
       el.classList.add("fade-in");
@@ -340,23 +344,23 @@ function showPage(n) {
   window.scrollTo(0, 0);
 }
 
-/* ================= VOCABULARY DATA ================= */
+/* ================= VOCABULARY DATA (EMOJI IMAGES) ================= */
 const vocab = [
-  {word:'a power station', img:'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=300', ru:'электростанция', pron:"[ə 'paʊə ˌsteɪʃn]"},
-  {word:'factory', img:'https://images.unsplash.com/photo-1507255009947-948a7abd7f31?q=80&w=300', ru:'завод', pron:"['fæktəri]"},
-  {word:'toxic fumes', img:'https://images.unsplash.com/photo-1444065381814-865dc9da92c0?q=80&w=300', ru:'токсичные выбросы', pron:"['tɒksɪk 'fjuːmz]"},
-  {word:'acid rain', img:'https://images.unsplash.com/photo-1470214304380-aadaedcfff62?q=80&w=300', ru:'кислотный дождь', pron:"['æsɪd reɪn]"},
-  {word:'loss of natural habitats', img:'https://images.unsplash.com/photo-1424746219973-8fe3bd07d8e3?q=80&w=300', ru:'потеря мест обитания', pron:"[lɒs əv 'næʧrəl 'hæbɪtæts]"},
-  {word:'pollution', img:'https://images.unsplash.com/photo-1449157291145-7efd050a4d0e?q=80&w=300', ru:'загрязнение', pron:"[pəˈluːʃn]"},
-  {word:'emit', img:'https://images.unsplash.com/photo-1465101162946-4377e57745c3?q=80&w=300', ru:'выделять', pron:"[ɪˈmɪt]"},
-  {word:'oxygen', img:'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=300', ru:'кислород', pron:"['ɒksɪdʒən]"},
-  {word:'wipe out', img:'https://images.unsplash.com/photo-1464983953574-0892a716854b?q=80&w=300', ru:'уничтожить', pron:"[waɪp aʊt]"},
-  {word:'recycle cans', img:'https://images.unsplash.com/photo-1454023492550-5696f8ff10e1?q=80&w=300', ru:'перерабатывать банки', pron:"[ˌriːˈsaɪkl kænz]"},
-  {word:'collect rubbish', img:'https://images.unsplash.com/photo-1465101178521-c1a9136a3c93?q=80&w=300', ru:'собирать мусор', pron:"[kəˈlekt ˈrʌbɪʃ]"},
-  {word:'build nesting boxes', img:'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=300', ru:'строить скворечники', pron:"[ˈnɛstɪŋ ˈbɒksɪz]"},
-  {word:'clean out a pond', img:'https://images.unsplash.com/photo-1477587458883-47145ed94245?q=80&w=300', ru:'чистить пруд', pron:"[kliːn aʊt ə pɒnd]"},
-  {word:'a spade', img:'https://images.unsplash.com/photo-1509395176047-4a66953fd231?q=80&w=300', ru:'лопата', pron:"[speɪd]"},
-  {word:'tropical rainforest', img:'https://images.unsplash.com/photo-1464983953574-0892a716854b?q=80&w=300', ru:'тропический лес', pron:"[ˈtrɒpɪkəl ˈreɪnˌfɒrɪst]"}
+  {word:'a power station', img:'🏭⚡', ru:'электростанция', pron:"[ə 'paʊə ˌsteɪʃn]"},
+  {word:'factory', img:'🏭📦', ru:'завод', pron:"['fæktəri]"},
+  {word:'toxic fumes', img:'💨☣️', ru:'токсичные выбросы', pron:"['tɒksɪk 'fjuːmz]"},
+  {word:'acid rain', img:'🌧️☠️', ru:'кислотный дождь', pron:"['æsɪd reɪn]"},
+  {word:'loss of natural habitats', img:'🪓🌳', ru:'потеря мест обитания', pron:"[lɒs əv 'næʧrəl 'hæbɪtæts]"},
+  {word:'pollution', img:'🛢️🌊', ru:'загрязнение', pron:"[pəˈluːʃn]"},
+  {word:'emit', img:'🏭💨', ru:'выделять', pron:"[ɪˈmɪt]"},
+  {word:'oxygen', img:'🍃🫧', ru:'кислород', pron:"['ɒksɪdʒən]"},
+  {word:'wipe out', img:'💥🚫', ru:'уничтожить', pron:"[waɪp aʊt]"},
+  {word:'recycle cans', img:'♻️🥫', ru:'перерабатывать банки', pron:"[ˌriːˈsaɪkl kænz]"},
+  {word:'collect rubbish', img:'🗑️🚮', ru:'собирать мусор', pron:"[kəˈlekt ˈrʌbɪʃ]"},
+  {word:'build nesting boxes', img:'🔨🐦', ru:'строить скворечники', pron:"[ˈnɛstɪŋ ˈbɒksɪz]"},
+  {word:'clean out a pond', img:'🦆🧹', ru:'чистить пруд', pron:"[kliːn aʊt ə pɒnd]"},
+  {word:'a spade', img:'⛏️🌱', ru:'лопата', pron:"[speɪd]"},
+  {word:'tropical rainforest', img:'🌴🐒', ru:'тропический лес', pron:"[ˈtrɒpɪkəl ˈreɪnˌfɒrɪst]"}
 ];
 
 /* Render Flashcards */
@@ -371,7 +375,7 @@ function renderCards() {
             <button class="sound-btn" onclick="event.stopPropagation(); playSound('${v.word.replace(/'/g, "\\'")}')">🔊</button>
           </div>
           <div class="flip-back">
-            <img src="${v.img}" alt="${v.word}" loading="lazy">
+            <div class="emoji-img">${v.img}</div>
             <div class="vocab-trans">${v.ru}</div>
             <div class="vocab-pron">${v.pron}</div>
           </div>
@@ -396,17 +400,13 @@ function playSound(text) {
 }
 
 /* ================= EXERCISE LOGIC ================= */
-
-// Clean strings for comparison
 const cleanStr = str => str.toLowerCase().replace(/[.,?!]/g, "").replace(/\s+/g, " ").trim();
 
-// Text Input Check
 function checkAnswer(inputId, ...correctAnswers) {
   const inputEl = document.getElementById(inputId);
   const resultEl = document.getElementById(inputId + "-res");
   const userVal = cleanStr(inputEl.value);
   
-  // Check if matches any of the accepted answers
   const isCorrect = correctAnswers.some(ans => userVal === cleanStr(ans));
 
   if (isCorrect) {
@@ -416,17 +416,15 @@ function checkAnswer(inputId, ...correctAnswers) {
   } else {
     inputEl.style.borderColor = "var(--error)";
     inputEl.classList.remove("shake");
-    void inputEl.offsetWidth; // trigger reflow
+    void inputEl.offsetWidth; 
     inputEl.classList.add("shake");
     resultEl.className = "feedback-text feedback-wrong fade-in";
     resultEl.innerHTML = `❌ Incorrect. Try again! (Hint: ${correctAnswers[0]})`;
   }
 }
 
-// Multiple Choice Check
 function mcq(btn, isCorrect, explanation) {
   const parent = btn.parentNode;
-  // Disable all siblings
   Array.from(parent.children).forEach(b => {
     b.disabled = true;
     b.style.opacity = "0.7";
@@ -434,7 +432,6 @@ function mcq(btn, isCorrect, explanation) {
   
   btn.style.opacity = "1";
   
-  // Find or create feedback span
   let feedback = parent.nextElementSibling;
   if (!feedback || !feedback.classList.contains('feedback-text')) {
     feedback = document.createElement('span');
@@ -453,7 +450,6 @@ function mcq(btn, isCorrect, explanation) {
     feedback.innerHTML = "❌ " + explanation;
   }
 }
-
 </script>
 </body>
 </html>
