@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spotlight 7 Module 8 Revision</title>
+  <meta name="viewport" content="width=device-width">
+  <style>
+    body { font-family: Arial,sans-serif; margin:0; background:#e9f5ec;}
+    nav { background:#22753a; padding:10px;}
+    nav a { color:#fff; margin:0 1em; text-decoration:none; font-weight:700;}
+    nav a.active { text-decoration:underline;}
+    .container { padding:24px; max-width:900px; margin:0 auto;}
+    h2 { margin-top:0;}
+    .flashcard { display:flex; align-items:center; margin:18px 0; cursor:pointer; border:1px solid #cfc; border-radius:8px; background:#fff; box-shadow:0 2px 8px #0001; }
+    .flashcard:hover { background:#f2f8f2;}
+    .flashcard img { width:90px; height:70px; object-fit:cover; border-radius:8px 0 0 8px;}
+    .flashcard-content { flex:1; padding-left:18px;}
+    .translation { color:#15654b; font-size:1.1em; margin-top:10px; display:none;}
+    .show { display:block!important;}
+    .grammar-block {background:#fff; margin:20px 0; padding:18px; border-radius:8px; box-shadow:0 2px 8px #0001;}
+    .grammar-title { font-size:1.2em; font-weight:bold; margin-bottom:8px;}
+    .grammar-rule {background:#e0f4e7;padding:7px 15px;margin:-12px 0 10px 0; border-radius:5px;}
+    .grammar-question { margin:18px 0;}
+    .answers button { margin:6px 8px 6px 0; cursor:pointer; padding:3.5px 15px;}
+    .correct { background:#d6f5d6 !important;}
+    .incorrect { background:#fbcccc !important;}
+    .result { font-weight:bold; padding-left:9px;}
+    input[type="text"] { padding:4px;}
+    .check-btn {padding:4px 18px; margin-left:6px;}
+    .hidden {display:none;}
+    @media (max-width:700px){
+      .container {max-width:99vw;padding:1vw;}
+      .flashcard img {width:60px; height:45px;}
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="#" class="navlink active" onclick="showPage(0);">Vocabulary</a>
+  <a href="#" class="navlink" onclick="showPage(1);">Grammar</a>
+  <a href="#" class="navlink" onclick="showPage(2);">Final Test</a>
+</nav>
+<div class="container">
+
+<!-- VOCABULARY -->
+<section id="page-0">
+  <h2>Vocabulary Revision</h2>
+  <p>Click a card to hear the word (British accent), see its translation and a picture.</p>
+  <div id="flashcards"></div>
+</section>
+
+<!-- GRAMMAR -->
+<section class="hidden" id="page-1">
+  <h2>Grammar: Practice (Present Perfect Continuous, Phrasal verbs, Modal verbs, and Question tags)</h2>
+  
+  <div class="grammar-block" id="gram-present-perfect-cont">
+    <div class="grammar-title">A. Present Perfect Continuous</div>
+    <div class="grammar-rule">
+      <b>Rule:</b> We use <b>Present Perfect Continuous</b> (have/has been + verb-ing) to talk about an action that started in the past and is still continuing or has just finished and has a result now.<br>
+      <i>Example:</i> She <b>has been cleaning</b> the park for 2 hours.
+    </div>
+    <div class="grammar-question">
+      1. Choose the correct form:<br>
+      James ___ (clean) out a pond for two hours!
+      <div class="answers">
+        <button onclick="markAnswer(this,false,'Wrong: Past Simple, not Present Perfect Continuous.')">cleans</button>
+        <button onclick="markAnswer(this,true,'Right! Present Perfect Continuous: действие длилось и всё ещё продолжается.')">has been cleaning</button>
+        <button onclick="markAnswer(this,false,'Wrong: Past Continuous is not for a result that started in the past and continues now.')">was cleaning</button>
+      </div>
+    </div>
+    <div class="grammar-question">
+      2. Make the sentence in Present Perfect Continuous:<br>
+      "They / plant flowers / all day."
+      <input type="text" id="ppc1" placeholder="...">
+      <button class="check-btn" onclick="checkInput('ppc1','They have been planting flowers','Correct! Present Perfect Continuous: have/has been + ing.','Неправильно. Правильно: They have been planting flowers')">Check</button>
+      <span class="result" id="ppc1res"></span>
+    </div>
+  </div>
+
+  <div class="grammar-block" id="gram-phrasal-verbs">
+    <div class="grammar-title">B. Phrasal Verbs (make up, make up with, make out)</div>
+    <div class="grammar-rule">
+      <b>Rule:</b> <b>Phrasal verbs</b> are a verb + one or two particles (prepositions/adverbs) that often have a special meaning:<br>
+      <b>make up</b> — invent, create (придумать);<br>
+      <b>make up with</b> — become friends again after an argument (помириться);<br>
+      <b>make out</b> — see, hear or understand with difficulty (разобрать, различить).
+    </div>
+    <div class="grammar-question">
+      1. Choose the correct phrasal verb:<br>
+      After their argument, they decided to ___ .
+      <div class="answers">
+        <button onclick="markAnswer(this,false,'Нет, это «придумать историю».')">make up a story</button>
+        <button onclick="markAnswer(this,true,'Верно! «make up with» — помириться.')">make up with each other</button>
+        <button onclick="markAnswer(this,false,'Нет, это глагол движения, не тот смысл.')">make out the window</button>
+      </div>
+    </div>
+    <div class="grammar-question">
+      2. Translate: "Она не могла разобрать, что написано на доске."
+      <input type="text" id="phrasal1" placeholder="...">
+      <button class="check-btn" onclick="checkInput('phrasal1','She couldn\'t make out what was written on the board','Correct!','Ошибка. Верный ответ: She couldn\'t make out what was written on the board')">Check</button>
+      <span class="result" id="phrasal1res"></span>
+    </div>
+  </div>
+  
+  <div class="grammar-block" id="gram-modals">
+    <div class="grammar-title">C. Modal Verbs: have/has to, don’t/doesn’t have to</div>
+    <div class="grammar-rule">
+      <b>Rule:</b> <b>have to / has to</b> means "necessary, you must do it" (нужно, должен).<br>
+      <b>don't/doesn't have to</b> means "not necessary" (не обязательно, нет необходимости).<br>
+      <i>Example:</i> She <b>has to</b> recycle cans. You <b>don't have to</b> read the book if you don't want to.
+    </div>
+    <div class="grammar-question">
+      1. Choose the correct answer:<br>
+      You ___ (don’t have to) recycle cans if you don’t want to, but it’s better for the planet!
+      <div class="answers">
+        <button onclick="markAnswer(this,true,'Правильно! don\'t have to — не обязан.')">don’t have to</button>
+        <button onclick="markAnswer(this,false,'Нет такой формы haven\'t to!')">haven’t to</button>
+        <button onclick="markAnswer(this,false,'mustn\'t = нельзя, а не не обязан.')">mustn’t</button>
+      </div>
+    </div>
+    <div class="grammar-question">
+      2. Translate: "Ему нужно убрать пруд."
+      <input type="text" id="modals1" placeholder="...">
+      <button class="check-btn" onclick="checkInput('modals1','He has to clean out the pond','Correct!','Ошибка. Верно: He has to clean out the pond')">Check</button>
+      <span class="result" id="modals1res"></span>
+    </div>
+  </div>
+  
+  <div class="grammar-block" id="gram-tags">
+    <div class="grammar-title">D. Question Tags</div>
+    <div class="grammar-rule">
+      <b>Rule:</b> <b>Question tags</b> are short questions at the end of statements. They are used to confirm information. Use a positive statement + negative tag, or a negative statement + positive tag:<br>
+      <i>Example:</i> She is cleaning the park, <b>isn't she</b>? You don't have to go, <b>do you</b>?
+    </div>
+    <div class="grammar-question">
+      1. Complete the tag:<br>
+        She collects rubbish, ___ ?
+      <input type="text" id="tags1" placeholder="...">
+      <button class="check-btn" onclick="checkInput('tags1','doesn\'t she','Right! С отрицанием для утвердительного предложения.','Неправильно. Нужен отрицательный хвостик: doesn\'t she')">Check</button>
+      <span class="result" id="tags1res"></span>
+    </div>
+    <div class="grammar-question">
+      2. Choose the correct tag:<br>
+      We have to recycle, ___ ?
+      <div class="answers">
+        <button onclick="markAnswer(this,false,'Нет, должно быть don\'t we (отрицание).')">do we</button>
+        <button onclick="markAnswer(this,true,'Right! «don\'t we» для положительных предложений.')">don’t we</button>
+        <button onclick="markAnswer(this,false,'haven\'t we не подходит для have to.')">haven’t we</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL TEST -->
+<section class="hidden" id="page-2">
+  <h2>Final Mini-Test</h2>
+  <ol>
+    <li>
+      <div>
+        Look at the picture. What’s this?<br>
+        <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?q=80&w=300" width="120">
+        <input type="text" id="f1" placeholder="...">
+        <button class="check-btn" onclick="checkInput('f1','tropical rainforest','Correct!','Wrong. Правильный ответ: tropical rainforest')">Show answer</button>
+        <span class="result" id="f1res"></span>
+      </div>
+    </li>
+    <li>
+      <div>
+        Complete:<br>
+        Air, water and soil ___ cause many fish and plant species to die.
+        <div class="answers">
+          <button onclick="markAnswer(this,true,'Correct! Pollution – the correct noun.')">pollution</button>
+          <button onclick="markAnswer(this,false,'Нет, collections не подходит по смыслу.')">collections</button>
+          <button onclick="markAnswer(this,false,'Нет, improvement – это "улучшение".')">improvement</button>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div>
+        Translate to Russian: "build nesting boxes"
+        <input type="text" id="f2" placeholder="...">
+        <button class="check-btn" onclick="checkInput('f2','строить гнездовые домики','Верно!','Ошибка. Верный ответ: строить гнездовые домики')">Show answer</button>
+        <span class="result" id="f2res"></span>
+      </div>
+    </li>
+    <li>
+      <div>
+        Complete:<br>
+        Acid rains can <input type="text" id="f3" placeholder="..."> entire woods.
+        <button class="check-btn" onclick="checkInput('f3','wipe out','Right! «wipe out» = полностью уничтожить','Ошибка. Верно: wipe out')">Show answer</button>
+        <span class="result" id="f3res"></span>
+      </div>
+    </li>
+  </ol>
+</section>
+</div>
+
+<script>
+// --- Navigation ---
+const pages = ["page-0","page-1","page-2"];
+function showPage(n) {
+  pages.forEach((id,i)=>{
+    document.getElementById(id).className = (i===n)?"":"hidden";
+    document.querySelectorAll('.navlink')[i].classList.toggle('active',i===n);
+  });
+}
+
+// --- Vocabulary ---
+const vocab = [
+  {word:'a power station', image:'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=300', ru:'электростанция'},
+  {word:'factory', image:'https://images.unsplash.com/photo-1507255009947-948a7abd7f31?q=80&w=300', ru:'завод'},
+  {word:'toxic fumes', image:'https://images.unsplash.com/photo-1444065381814-865dc9da92c0?q=80&w=300', ru:'токсичные выбросы'},
+  {word:'factory waste', image:'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?q=80&w=300', ru:'промышленные отходы'},
+  {word:'acid rain', image:'https://images.unsplash.com/photo-1470214304380-aadaedcfff62?q=80&w=300', ru:'кислотный дождь'},
+  {word:'polluted clouds', image:'https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?q=80&w=300', ru:'загрязнённые облака'},
+  {word:'loss of natural habitats', image:'https://images.unsplash.com/photo-1424746219973-8fe3bd07d8e3?q=80&w=300', ru:'утрата естественных мест обитания'},
+  {word:'air, water and soil pollution', image:'https://images.unsplash.com/photo-1449157291145-7efd050a4d0e?q=80&w=300', ru:'загрязнение воздуха, воды и почвы'},
+  {word:'fish and plants species dying', image:'https://images.unsplash.com/photo-1416339306562-f3d12fefd36f?q=80&w=300', ru:'гибель видов рыб и растений'},
+  {word:'burn', image:'https://images.unsplash.com/photo-1436891620584-47fd0e565afb?q=80&w=300', ru:'сжигать'},
+  {word:'emit', image:'https://images.unsplash.com/photo-1465101162946-4377e57745c3?q=80&w=300', ru:'выделять, выбрасывать'},
+  {word:'gathered', image:'https://images.unsplash.com/photo-1477587458883-47145ed94245?q=80&w=300', ru:'собранный'},
+  {word:'oxygen', image:'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=300', ru:'кислород'},
+  {word:'atmosphere', image:'https://images.unsplash.com/photo-1460869997111-289975e70bb0?q=80&w=300', ru:'атмосфера'},
+  {word:'land (verb)', image:'https://images.unsplash.com/photo-1465101178521-c1a9136a3c93?q=80&w=300', ru:'приземляться'},
+  {word:'sleet', image:'https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?q=80&w=300', ru:'мокрый снег'},
+  {word:'wipe out', image:'https://images.unsplash.com/photo-1464983953574-0892a716854b?q=80&w=300', ru:'уничтожить'},
+  {word:'poison (verb)', image:'https://images.unsplash.com/photo-1454023492550-5696f8ff10e1?q=80&w=300', ru:'отравлять'},
+  {word:'reduce', image:'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=300', ru:'уменьшать, сокращать'},
+  {word:'harmful', image:'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?q=80&w=300', ru:'вредный'},
+  {word:'solar power', image:'https://images.unsplash.com/photo-1509395176047-4a66953fd231?q=80&w=300', ru:'солнечная энергия'},
+  {word:'heat', image:'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?q=80&w=300', ru:'жара, нагревать'},
+  {word:'plant flowers', image:'https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?q=80&w=300', ru:'сажать цветы'},
+  {word:'recycle cans', image:'https://images.unsplash.com/photo-1454023492550-5696f8ff10e1?q=80&w=300', ru:'перерабатывать банки'},
+  {word:'collect rubbish', image:'https://images.unsplash.com/photo-1465101178521-c1a9136a3c93?q=80&w=300', ru:'собирать мусор'},
+  {word:'build nesting boxes', image:'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=300', ru:'строить скворечники'},
+  {word:'teach the cycle of life', image:'https://images.unsplash.com/photo-1416339306562-f3d12fefd36f?q=80&w=300', ru:'научить циклу жизни'},
+  {word:'clean out a pond', image:'https://images.unsplash.com/photo-1477587458883-47145ed94245?q=80&w=300', ru:'чистить пруд'},
+  {word:'read a book about ecology', image:'https://images.unsplash.com/photo-1470214304380-aadaedcfff62?q=80&w=300', ru:'читать книгу об экологии'},
+  {word:'a ladder', image:'https://images.unsplash.com/photo-1416339306562-f3d12fefd36f?q=80&w=300', ru:'лестница'},
+  {word:'a hammer and nails', image:'https://images.unsplash.com/photo-1507255009947-948a7abd7f31?q=80&w=300', ru:'молоток и гвозди'},
+  {word:'a spade', image:'https://images.unsplash.com/photo-1509395176047-4a66953fd231?q=80&w=300', ru:'лопата'},
+  {word:'a watering can', image:'https://images.unsplash.com/photo-1454023492550-5696f8ff10e1?q=80&w=300', ru:'лейка'},
+  {word:'a rake', image:'https://images.unsplash.com/photo-1470214304380-aadaedcfff62?q=80&w=300', ru:'грабли'},
+  {word:'a net', image:'https://images.unsplash.com/photo-1465101178521-c1a9136a3c93?q=80&w=300', ru:'сачок, сеть'},
+  {word:'gardening gloves', image:'https://images.unsplash.com/photo-1460869997111-289975e70bb0?q=80&w=300', ru:'садовые перчатки'},
+  {word:'a plastic bag', image:'https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?q=80&w=300', ru:'пластиковый пакет'},
+  {word:'leave/left', image:'https://images.unsplash.com/photo-1470214304380-aadaedcfff62?q=80&w=300', ru:'уходить/ушёл'},
+  {word:'woods', image:'https://images.unsplash.com/photo-1477587458883-47145ed94245?q=80&w=300', ru:'лес'},
+  {word:'tropical rainforest', image:'https://images.unsplash.com/photo-1464983953574-0892a716854b?q=80&w=300', ru:'тропический лес'},
+  {word:'desert', image:'https://images.unsplash.com/photo-1460869997111-289975e70bb0?q=80&w=300', ru:'пустыня'},
+  {word:'polar regions', image:'https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?q=80&w=300', ru:'полярные области'},
+  {word:'wetlands', image:'https://images.unsplash.com/photo-1416339306562-f3d12fefd36f?q=80&w=300', ru:'болота'},
+  {word:'savannah (grassland)', image:'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=300', ru:'савана (степь)'},
+];
+let isRuVisible = Array(vocab.length).fill(false);
+
+function generateFlashcards() {
+  let html = '';
+  vocab.forEach((v, i) => {
+    html += `
+      <div class="flashcard" onclick="toggleRu(${i});playAudio('${v.word}',true)">
+        <img src="${v.image}" alt="${v.word}">
+        <div class="flashcard-content">
+          <div><strong>${v.word}</strong></div>
+          <div class="translation" id="tr${i}">${v.ru}</div>
+        </div>
+        <button style="margin-left:auto;" onclick="event.stopPropagation();playAudio('${v.word}',true)">🔈</button>
+      </div>`;
+  });
+  document.getElementById('flashcards').innerHTML = html;
+}
+generateFlashcards();
+function toggleRu(i) {
+  isRuVisible[i] = !isRuVisible[i];
+  document.getElementById('tr'+i).className = isRuVisible[i]?"translation show":"translation";
+}
+function playAudio(text) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  let utter = new window.SpeechSynthesisUtterance(text);
+  utter.lang = "en-GB";
+  utter.rate = 0.98;
+  let voices = window.speechSynthesis.getVoices();
+  let british = voices.find(v=>/^en-GB/i.test(v.lang));
+  if (british) utter.voice = british;
+  window.speechSynthesis.speak(utter);
+}
+
+// Grammar feedback: Right/Wrong explanation (русский)
+function markAnswer(btn, correct, expl) {
+  const parent = btn.parentNode;
+  Array.from(parent.children).forEach(b=>b.disabled=true);
+  btn.classList.add(correct?"correct":"incorrect");
+  btn.innerText = correct ? ('✔ '+btn.innerText.replace(/^✔\s|^×\s/,'')) : ('× '+btn.innerText.replace(/^✔\s|^×\s/,''));
+  // explanation
+  let span = document.createElement('span');
+  span.innerHTML = '<br><span style="font-size:0.93em;color:#4c0;">'+(correct?'Correct: ':'Incorrect: ')+expl+'</span>';
+  if (!parent.querySelector('span')) parent.appendChild(span);
+}
+function checkInput(id,right,ok,fail) {
+  let val = document.getElementById(id).value.trim().replace(/\s+/g,' ').toLowerCase();
+  let clean = right.trim().replace(/\s+/g,' ').toLowerCase();
+  let res = (val === clean) ? "<span style='color:green'>"+ok+"</span>" : "<span style='color:red'>"+fail+"</span>";
+  document.getElementById(id+'res').innerHTML = res;
+}
+</script>
+</body>
+</html>
