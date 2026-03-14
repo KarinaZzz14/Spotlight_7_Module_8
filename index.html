@@ -4,117 +4,124 @@
   <meta charset="UTF-8">
   <title>Eco Revision – Spotlight 7 Module 8</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-gradient: linear-gradient(135deg, #dcfce7 0%, #f0fdf4 100%);
-      --glass-bg: rgba(255, 255, 255, 0.7);
-      --glass-border: rgba(255, 255, 255, 0.5);
       --primary: #059669;
       --primary-hover: #047857;
-      --secondary: #34d399;
-      --text-dark: #064e3b;
-      --text-light: #0f766e;
+      --secondary: #10b981;
+      --text-dark: #1e293b;
+      --text-light: #475569;
       --danger: #ef4444;
       --success: #10b981;
-      --shadow-soft: 0 8px 32px rgba(5, 150, 105, 0.1);
-      --shadow-hover: 0 15px 40px rgba(5, 150, 105, 0.2);
-      --radius: 20px;
+      --glass-bg: rgba(255, 255, 255, 0.85);
+      --glass-border: rgba(255, 255, 255, 0.6);
+      --shadow-soft: 0 10px 40px rgba(5, 150, 105, 0.08);
+      --shadow-hover: 0 20px 50px rgba(5, 150, 105, 0.15);
+      --radius: 24px;
       --font: 'Poppins', sans-serif;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: var(--font); background: var(--bg-gradient); color: var(--text-dark); min-height: 100vh; overflow-x: hidden; scroll-behavior: smooth; }
+    
+    body { 
+      font-family: var(--font); 
+      color: var(--text-dark); 
+      min-height: 100vh; 
+      overflow-x: hidden; 
+      scroll-behavior: smooth;
+      background: linear-gradient(-45deg, #dcfce7, #f0fdf4, #ccfbf1, #bbf7d0);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+    }
 
-    /* ANIMATIONS */
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
-    @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5); } 70% { box-shadow: 0 0 0 15px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
+    @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes popIn { 0% { opacity: 0; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1); } }
+    @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
+    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 
-    .fade-up { animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .fade-up { animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
     .shake { animation: shake 0.4s ease; }
 
-    /* NAVBAR */
-    nav { background: var(--glass-bg); backdrop-filter: blur(15px); border-bottom: 1px solid var(--glass-border); position: sticky; top: 0; z-index: 100; padding: 15px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
-    nav ul { display: flex; justify-content: center; gap: 10px; list-style: none; flex-wrap: wrap; padding: 0 10px; }
-    nav a { text-decoration: none; color: var(--text-light); font-weight: 700; padding: 10px 20px; border-radius: 30px; transition: 0.3s; font-size: 1rem; }
-    nav a:hover, nav a.active { background: var(--primary); color: white; box-shadow: 0 8px 20px rgba(5, 150, 105, 0.3); transform: translateY(-2px); }
+    nav { background: rgba(255,255,255,0.9); backdrop-filter: blur(20px); border-bottom: 1px solid var(--glass-border); position: sticky; top: 0; z-index: 100; padding: 15px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
+    nav ul { display: flex; justify-content: center; gap: 15px; list-style: none; flex-wrap: wrap; padding: 0 15px; }
+    nav a { text-decoration: none; color: var(--text-light); font-weight: 600; padding: 12px 24px; border-radius: 30px; transition: all 0.4s ease; font-size: 1.05rem; position: relative; overflow: hidden; }
+    nav a::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--primary); z-index: -1; transform: scaleX(0); transform-origin: right; transition: transform 0.4s ease; border-radius: 30px; }
+    nav a:hover, nav a.active { color: white; transform: translateY(-2px); }
+    nav a:hover::before, nav a.active::before { transform: scaleX(1); transform-origin: left; }
+    nav a.active { box-shadow: 0 8px 20px rgba(5, 150, 105, 0.3); }
 
-    /* LAYOUT */
-    .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
-    .section-title { font-size: 2.2rem; color: var(--primary); margin-bottom: 30px; display: inline-block; position: relative; }
-    .section-title::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 50%; height: 5px; background: var(--secondary); border-radius: 10px; }
-    .glass-card { background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: var(--radius); padding: 35px; box-shadow: var(--shadow-soft); margin-bottom: 40px; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 50px 20px; }
+    .section-title { font-size: 2.5rem; color: var(--primary); margin-bottom: 30px; display: inline-block; position: relative; font-weight: 800; }
+    .section-title::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 60%; height: 6px; background: var(--secondary); border-radius: 10px; }
+    .glass-card { background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: var(--radius); padding: 40px; box-shadow: var(--shadow-soft); margin-bottom: 40px; transition: transform 0.3s; }
+    .glass-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
 
-    /* FLASHCARDS */
-    .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
-    .flip-card { height: 260px; perspective: 1000px; cursor: pointer; }
-    .flip-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d; }
+    .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 25px; }
+    .flip-card { height: 300px; perspective: 1000px; cursor: pointer; opacity: 0; }
+    .flip-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d; }
     .flip-card.flipped .flip-inner { transform: rotateY(180deg); }
     
-    .flip-front, .flip-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: var(--radius); background: white; box-shadow: var(--shadow-soft); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; border: 2px solid transparent; transition: 0.3s; }
-    .flip-card:hover .flip-front { border-color: var(--secondary); transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+    .flip-front, .flip-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: var(--radius); background: white; box-shadow: var(--shadow-soft); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 25px; text-align: center; border: 2px solid transparent; transition: all 0.3s ease; }
+    .flip-card:hover .flip-front { border-color: var(--secondary); transform: translateY(-8px); box-shadow: var(--shadow-hover); }
     
-    .flip-front strong { font-size: 1.25rem; color: var(--text-dark); margin-bottom: 15px; }
-    .sound-btn { background: var(--secondary); color: white; border: none; border-radius: 50%; width: 55px; height: 55px; font-size: 1.6rem; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(52, 211, 153, 0.4); }
-    .sound-btn:hover { background: var(--primary); transform: scale(1.1); }
+    .flip-front strong { font-size: 1.35rem; color: var(--text-dark); margin-bottom: 20px; font-weight: 700; line-height: 1.3; }
+    .sound-btn { background: var(--secondary); color: white; border: none; border-radius: 50%; width: 60px; height: 60px; font-size: 1.6rem; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4); }
+    .sound-btn:hover { background: var(--primary); transform: scale(1.15) rotate(-5deg); }
     
-    .flip-back { transform: rotateY(180deg); justify-content: flex-start; background: #f8fafc; }
+    .flip-back { transform: rotateY(180deg); background: #f8fafc; justify-content: flex-start; }
     
-    /* VECTOR EMOJI ILLUSTRATIONS (100% Reliable) */
-    .ill-box { width: 100%; height: 110px; border-radius: 15px; margin-bottom: 15px; display: flex; justify-content: center; align-items: center; font-size: 3.5rem; background: linear-gradient(135deg, #a7f3d0, #6ee7b7); box-shadow: inset 0 2px 10px rgba(0,0,0,0.05); }
+    .ill-box { width: 100%; height: 140px; margin-bottom: 15px; display: flex; justify-content: center; align-items: center; overflow: hidden; border-radius: 16px; background: #e2e8f0; }
+    .ill-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .flip-card:hover .ill-box img { transform: scale(1.1); }
+    .emoji-fallback { font-size: 4rem; animation: pulse 2s infinite; }
     
-    .flip-back .vocab-trans { font-size: 1.1rem; font-weight: 800; color: var(--primary); margin-bottom: 5px; line-height: 1.2; }
-    .flip-back .vocab-pron { font-size: 0.95rem; color: var(--text-light); }
+    .flip-back .vocab-trans { font-size: 1.15rem; font-weight: 800; color: var(--primary); margin-bottom: 8px; line-height: 1.2; }
+    .flip-back .vocab-pron { font-size: 1rem; color: var(--text-light); font-family: monospace; background: #e2e8f0; padding: 4px 10px; border-radius: 8px;}
 
-    /* GRAMMAR RULES */
-    .rule-box { background: white; border-left: 6px solid var(--primary); padding: 20px; border-radius: 16px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
-    .rule-box h4 { color: var(--primary); margin-bottom: 10px; font-size: 1.3rem; }
-    .rule-box p { margin-bottom: 8px; font-size: 1.05rem; }
+    .rule-box { background: white; border-left: 6px solid var(--primary); padding: 25px; border-radius: 16px; margin-bottom: 35px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
+    .rule-box h4 { color: var(--primary); margin-bottom: 12px; font-size: 1.4rem; }
+    .rule-box p { margin-bottom: 10px; font-size: 1.1rem; line-height: 1.5;}
     
-    /* TASKS */
-    .task-group { margin-bottom: 40px; }
-    .question-wrap { margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px dashed #cbd5e1; }
+    .question-wrap { margin-bottom: 30px; padding-bottom: 25px; border-bottom: 2px dashed #cbd5e1; }
     .question-wrap:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-    .q-text { font-size: 1.15rem; font-weight: 500; margin-bottom: 15px; }
+    .q-text { font-size: 1.2rem; font-weight: 600; margin-bottom: 15px; color: #334155; }
     
-    .input-flex { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-    input[type="text"] { flex: 1; min-width: 250px; padding: 14px 20px; border: 2px solid #d1d5db; border-radius: 14px; font-family: var(--font); font-size: 1.05rem; color: var(--text-dark); transition: 0.3s; background: white; }
-    input[type="text"]:focus { border-color: var(--secondary); box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.2); outline: none; }
+    .input-flex { display: flex; flex-wrap: wrap; gap: 15px; align-items: center; }
+    input[type="text"] { flex: 1; min-width: 280px; padding: 16px 24px; border: 2px solid #cbd5e1; border-radius: 16px; font-family: var(--font); font-size: 1.1rem; color: var(--text-dark); transition: all 0.3s; background: white; }
+    input[type="text"]:focus { border-color: var(--secondary); box-shadow: 0 0 0 5px rgba(16, 185, 129, 0.15); outline: none; transform: translateY(-2px); }
     
-    .btn-check { background: var(--primary); color: white; border: none; padding: 14px 28px; border-radius: 14px; font-weight: 700; font-size: 1.05rem; cursor: pointer; transition: 0.3s; box-shadow: 0 6px 15px rgba(5, 150, 105, 0.2); }
-    .btn-check:hover { background: var(--primary-hover); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(5, 150, 105, 0.3); }
+    .btn-check { background: var(--primary); color: white; border: none; padding: 16px 32px; border-radius: 16px; font-weight: 700; font-size: 1.1rem; cursor: pointer; transition: all 0.3s; box-shadow: 0 8px 20px rgba(5, 150, 105, 0.25); }
+    .btn-check:hover { background: var(--primary-hover); transform: translateY(-4px); box-shadow: 0 12px 25px rgba(5, 150, 105, 0.35); }
 
-    .mcq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
-    .mcq-btn { padding: 14px; background: white; border: 2px solid #d1d5db; border-radius: 14px; font-family: var(--font); font-weight: 700; font-size: 1.05rem; color: var(--text-dark); cursor: pointer; transition: 0.3s; }
-    .mcq-btn:hover:not(:disabled) { border-color: var(--secondary); background: #f0fdf4; transform: translateY(-2px); }
+    .mcq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+    .mcq-btn { padding: 16px; background: white; border: 2px solid #cbd5e1; border-radius: 16px; font-family: var(--font); font-weight: 600; font-size: 1.1rem; color: var(--text-dark); cursor: pointer; transition: all 0.3s; position: relative; overflow: hidden; }
+    .mcq-btn:hover:not(:disabled) { border-color: var(--secondary); background: #f0fdf4; transform: translateY(-3px); box-shadow: 0 8px 15px rgba(16,185,129,0.1); }
 
-    /* FEEDBACK */
-    .feedback { display: block; margin-top: 10px; font-weight: 700; font-size: 1rem; opacity: 0; transition: 0.3s; height: 0; overflow: hidden; }
-    .feedback.show { opacity: 1; height: auto; margin-top: 12px; padding: 12px; border-radius: 10px; }
-    .f-correct { background: #dcfce7; color: var(--success); border: 1px solid #86efac; }
+    .feedback { font-weight: 700; font-size: 1.05rem; opacity: 0; transition: all 0.4s ease; height: 0; overflow: hidden; transform: translateY(-10px); }
+    .feedback.show { opacity: 1; height: auto; margin-top: 15px; padding: 15px; border-radius: 12px; transform: translateY(0); }
+    .f-correct { background: #dcfce7; color: var(--success); border: 1px solid #86efac; animation: pulse 0.5s ease; }
     .f-wrong { background: #fee2e2; color: var(--danger); border: 1px solid #fca5a5; }
-    .btn-correct { background: var(--success) !important; color: white !important; border-color: var(--success) !important; animation: pulse-green 1s; }
+    .btn-correct { background: var(--success) !important; color: white !important; border-color: var(--success) !important; }
     .btn-wrong { background: var(--danger) !important; color: white !important; border-color: var(--danger) !important; }
 
-    /* TEST RESULTS */
-    #test-results { text-align: center; padding: 40px 20px; }
-    .score-circle { width: 160px; height: 160px; border-radius: 50%; background: conic-gradient(var(--primary) 0%, #e5e7eb 0%); display: flex; justify-content: center; align-items: center; margin: 0 auto 20px; font-size: 2.5rem; font-weight: 800; color: var(--primary); position: relative; }
-    .score-circle::before { content: ''; position: absolute; width: 130px; height: 130px; background: var(--glass-bg); border-radius: 50%; }
+    #test-results { text-align: center; padding: 60px 20px; }
+    .score-circle { width: 180px; height: 180px; border-radius: 50%; background: #e5e7eb; display: flex; justify-content: center; align-items: center; margin: 0 auto 30px; font-size: 3rem; font-weight: 800; color: var(--primary); position: relative; box-shadow: 0 15px 35px rgba(0,0,0,0.1); transition: background 1.5s ease-out; }
+    .score-circle::before { content: ''; position: absolute; width: 140px; height: 140px; background: white; border-radius: 50%; box-shadow: inset 0 5px 15px rgba(0,0,0,0.05);}
     .score-text { position: relative; z-index: 1; }
-
     .hidden { display: none !important; }
 
-    /* RESPONSIVE */
     @media (max-width: 768px) {
-      nav a { padding: 8px 14px; font-size: 0.95rem; }
-      .container { padding: 20px 10px; }
-      .section-title { font-size: 1.8rem; }
-      .glass-card { padding: 20px; }
+      nav a { padding: 10px 16px; font-size: 0.95rem; }
+      .section-title { font-size: 2rem; }
+      .glass-card { padding: 25px; }
       .vocab-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
-      .flip-card { height: 230px; }
-      .ill-box { height: 90px; font-size: 3rem; }
-      .flip-front strong { font-size: 1.1rem; }
+      .flip-card { height: 260px; }
+      .ill-box { height: 110px; }
+      .flip-front strong { font-size: 1.15rem; }
+      .input-flex { flex-direction: column; align-items: stretch; }
+      .btn-check { width: 100%; }
     }
   </style>
 </head>
@@ -131,175 +138,136 @@
 
 <div class="container">
 
-  <!-- ================= 1. VOCABULARY SECTION ================= -->
   <section id="page-0" class="fade-up">
     <h2 class="section-title">Vocabulary Flashcards</h2>
-    <p style="color: var(--text-light); margin-bottom: 25px; font-size: 1.1rem; font-weight: 500;">
-      All 43 Module 8 words. Click 🔊 to listen. Click the card to flip and see the translation & illustration.
+    <p style="color: var(--text-light); margin-bottom: 30px; font-size: 1.15rem; font-weight: 500;">
+      All 43 Module 8 words. Click 🔊 to listen. Click the card to flip and see the translation & image.
     </p>
     <div class="vocab-grid" id="flashcards"></div>
   </section>
 
-  <!-- ================= 2. VOCABULARY IN CONTEXT ================= -->
-  <section id="page-1" class="hidden fade-up">
+  <section id="page-1" class="hidden">
     <h2 class="section-title">Vocabulary in Context</h2>
     <div class="glass-card">
-      <div class="rule-box">
-        <p>Type the correct missing word from the flashcards into the gaps. Do not use hints!</p>
-      </div>
-      
-      <!-- Generated via JS -->
+      <div class="rule-box"><p>Type the correct missing word from the flashcards into the gaps. Do not use hints!</p></div>
       <div id="context-tasks"></div>
     </div>
   </section>
 
-  <!-- ================= 3. GRAMMAR SECTION ================= -->
-  <section id="page-2" class="hidden fade-up">
+  <section id="page-2" class="hidden">
     <h2 class="section-title">Grammar Practice</h2>
-
-    <!-- PRESENT PERFECT CONTINUOUS -->
     <div class="glass-card">
-      <h3 style="font-size: 1.6rem; color: var(--primary); margin-bottom: 15px;">A. Present Perfect Continuous</h3>
-      <div class="rule-box">
-        <h4>Правило (Rule)</h4>
-        <p>Используем <b>have/has been + V-ing</b> для действий, которые начались в прошлом и всё ещё продолжаются (или закончились только что, и есть видимый результат).</p>
-        <p><b>(+) Утверждение:</b> I have been working.<br>
-        <b>(-) Отрицание:</b> She hasn't been sleeping.<br>
-        <b>(?) Вопрос:</b> Have they been playing?</p>
-      </div>
-      
+      <h3 style="font-size: 1.8rem; color: var(--primary); margin-bottom: 20px;">A. Present Perfect Continuous</h3>
+      <div class="rule-box"><p>Используем <b>have/has been + V-ing</b> для действий, которые начались в прошлом и всё ещё продолжаются.</p></div>
       <div class="task-group" id="grammar-ppc-tasks"></div>
     </div>
-
-    <!-- PHRASAL VERBS -->
     <div class="glass-card">
-      <h3 style="font-size: 1.6rem; color: var(--primary); margin-bottom: 15px;">B. Phrasal Verbs (Make)</h3>
-      <div class="rule-box">
-        <p><b>make up</b> = выдумать историю/оправдание.</p>
-        <p><b>make up with</b> = помириться с кем-то.</p>
-        <p><b>make out</b> = с трудом разобрать, понять или увидеть.</p>
-      </div>
-
+      <h3 style="font-size: 1.8rem; color: var(--primary); margin-bottom: 20px;">B. Phrasal Verbs (Make)</h3>
+      <div class="rule-box"><p><b>make up</b> = выдумать историю. <b>make up with</b> = помириться. <b>make out</b> = с трудом разобрать.</p></div>
       <div class="task-group" id="grammar-phrasal-tasks"></div>
     </div>
-
-    <!-- MODALS & QUESTION TAGS -->
     <div class="glass-card">
-      <h3 style="font-size: 1.6rem; color: var(--primary); margin-bottom: 15px;">C. Modals & Question Tags</h3>
-      <div class="rule-box">
-        <p><b>have to</b> = нужно, необходимо. <b>don't have to</b> = не обязательно.</p>
-        <p><b>Tags (хвостики):</b> Утверждение -> отрицательный хвостик (<i>You read, don't you?</i>). Отрицание -> положительный хвостик (<i>She isn't, is she?</i>)</p>
-      </div>
-
+      <h3 style="font-size: 1.8rem; color: var(--primary); margin-bottom: 20px;">C. Modals & Question Tags</h3>
+      <div class="rule-box"><p><b>have to</b> = нужно. <b>don't have to</b> = не обязательно. <b>Tags:</b> Утверждение -> отрицательный хвостик.</p></div>
       <div class="task-group" id="grammar-modal-tasks"></div>
     </div>
   </section>
 
-  <!-- ================= 4. FINAL TEST ================= -->
-  <section id="page-3" class="hidden fade-up">
+  <section id="page-3" class="hidden">
     <h2 class="section-title">🏆 Final Mega-Test</h2>
     <div class="glass-card" id="test-container">
-      <p style="margin-bottom: 25px; font-size: 1.15rem; color: var(--text-dark); font-weight: 500;">
-        Complete all 15 questions to check your knowledge of Module 8!
-      </p>
-      
+      <p style="margin-bottom: 30px; font-size: 1.2rem; color: var(--text-light); font-weight: 500;">Complete all 15 questions to check your knowledge of Module 8!</p>
       <div id="test-questions"></div>
-      
-      <button class="btn-check" style="width: 100%; margin-top: 30px; font-size: 1.3rem; padding: 20px;" onclick="calculateScore()">Submit Test</button>
+      <button class="btn-check" style="width: 100%; margin-top: 40px; font-size: 1.4rem; padding: 20px;" onclick="calculateScore()">Submit Test</button>
     </div>
-
     <div class="glass-card hidden" id="test-results">
-      <div class="score-circle" id="score-circle">
-        <span class="score-text" id="score-text">0/15</span>
-      </div>
-      <h3 style="font-size: 2.2rem; color: var(--text-dark); margin-bottom: 15px;" id="score-msg">Good Job!</h3>
-      <p id="score-desc" style="font-size: 1.2rem; color: var(--text-light); margin-bottom: 25px;"></p>
-      <button class="btn-check" style="font-size: 1.1rem;" onclick="location.reload()">Restart Revision</button>
+      <div class="score-circle" id="score-circle"><span class="score-text" id="score-text">0/15</span></div>
+      <h3 style="font-size: 2.5rem; color: var(--text-dark); margin-bottom: 15px;" id="score-msg">Good Job!</h3>
+      <p id="score-desc" style="font-size: 1.3rem; color: var(--text-light); margin-bottom: 30px;"></p>
+      <button class="btn-check" style="font-size: 1.2rem; padding: 15px 40px;" onclick="location.reload()">Restart Revision</button>
     </div>
   </section>
 
 </div>
 
 <script>
-/* ================= NAVIGATION ================= */
 function showPage(n) {
   const pages = ["page-0", "page-1", "page-2", "page-3"];
   pages.forEach((id, i) => {
     const el = document.getElementById(id);
-    if(i === n) {
-      el.classList.remove("hidden");
-      el.classList.remove("fade-up");
-      void el.offsetWidth;
-      el.classList.add("fade-up");
-    } else {
-      el.classList.add("hidden");
-    }
+    if(i === n) { el.classList.remove("hidden", "fade-up"); void el.offsetWidth; el.classList.add("fade-up"); } 
+    else { el.classList.add("hidden"); }
     document.querySelectorAll('.navlink')[i].classList.toggle('active', i === n);
   });
-  window.scrollTo(0, 0);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-/* ================= VOCABULARY DATA (WITH 100% RELIABLE EMOJIS) ================= */
+/* МАГИЯ ЗДЕСЬ: Специальные ссылки (image.pollinations.ai) генерируют крутые картинки по словам */
+const genUrl = (prompt) => `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=400&height=300&nologo=true`;
+
 const vocab = [
-  {word:'a power station', ru:'электростанция', pron:"[ə 'paʊə ˌsteɪʃn]", emoji:"🏭⚡"},
-  {word:'factory', ru:'завод', pron:"['fæktəri]", emoji:"🏭💨"},
-  {word:'toxic fumes', ru:'токсичные выбросы', pron:"['tɒksɪk 'fjuːmz]", emoji:"💨☠️"},
-  {word:'factory waste', ru:'промышленные отходы', pron:"['fæktəri weɪst]", emoji:"🛢️☢️"},
-  {word:'acid rain', ru:'кислотный дождь', pron:"['æsɪd reɪn]", emoji:"🌧️🔥"},
-  {word:'polluted clouds', ru:'загрязненные облака', pron:"[pə'luːtɪd klaʊdz]", emoji:"☁️🏭"},
-  {word:'loss of natural habitats', ru:'потеря мест обитания', pron:"[lɒs əv 'næʧrəl 'hæbɪtæts]", emoji:"🪓🌳"},
-  {word:'air, water and soil pollution', ru:'загрязнение воздуха, воды, почвы', pron:"[pəˈluːʃn]", emoji:"🌍🚮"},
-  {word:'fish and plants species dying', ru:'гибель видов рыб и растений', pron:"['spiːʃiːz ˈdaɪɪŋ]", emoji:"🐟🥀"},
-  {word:'burn', ru:'сжигать', pron:"[bɜːn]", emoji:"🔥🗑️"},
-  {word:'emit', ru:'выделять (газы)', pron:"[ɪˈmɪt]", emoji:"🏭💨"},
-  {word:'gathered', ru:'собранный', pron:"['gæðəd]", emoji:"🧺🤝"},
-  {word:'oxygen', ru:'кислород', pron:"['ɒksɪdʒən]", emoji:"🍃🫧"},
-  {word:'atmosphere', ru:'атмосфера', pron:"['ætməsfɪə]", emoji:"🌐🌤️"},
-  {word:'land (verb)', ru:'приземляться', pron:"[lænd]", emoji:"🛬🌍"},
-  {word:'sleet', ru:'мокрый снег', pron:"[sliːt]", emoji:"🌨️💧"},
-  {word:'wipe out', ru:'уничтожить', pron:"[waɪp aʊt]", emoji:"💥🚫"},
-  {word:'poison (verb)', ru:'отравлять', pron:"['pɔɪzn]", emoji:"🧪💀"},
-  {word:'reduce', ru:'уменьшать', pron:"[rɪ'djuːs]", emoji:"📉♻️"},
-  {word:'harmful', ru:'вредный', pron:"['hɑːmfʊl]", emoji:"⚠️❌"},
-  {word:'solar power', ru:'солнечная энергия', pron:"['səʊlə 'paʊə]", emoji:"☀️🔋"},
-  {word:'heat', ru:'жара, нагревать', pron:"[hiːt]", emoji:"🌡️🔥"},
-  {word:'plant flowers', ru:'сажать цветы', pron:"[plɑːnt 'flaʊəz]", emoji:"🌱🌷"},
-  {word:'recycle cans', ru:'перерабатывать банки', pron:"[riː'saɪkl kænz]", emoji:"♻️🥫"},
-  {word:'collect rubbish', ru:'собирать мусор', pron:"[kə'lekt 'rʌbɪʃ]", emoji:"🗑️🧤"},
-  {word:'build nesting boxes', ru:'строить скворечники', pron:"[bɪld 'nɛstɪŋ 'bɒksɪz]", emoji:"🔨🐦"},
-  {word:'teach the cycle of life', ru:'учить циклу жизни', pron:"[tiːʧ ðə 'saɪkl əv laɪf]", emoji:"👨‍🏫🔄"},
-  {word:'clean out a pond', ru:'вычистить пруд', pron:"[kliːn aʊt ə pɒnd]", emoji:"🦆🧹"},
-  {word:'read a book about ecology', ru:'читать об экологии', pron:"[riːd... ɪ'kɒləʤi]", emoji:"📖🌿"},
-  {word:'a ladder', ru:'лестница (стремянка)', pron:"[ə 'lædə]", emoji:"🪜🪜"},
-  {word:'a hammer and nails', ru:'молоток и гвозди', pron:"[ə 'hæmər ənd neɪlz]", emoji:"🔨📌"},
-  {word:'a spade', ru:'лопата', pron:"[ə speɪd]", emoji:"⛏️🌱"},
-  {word:'a watering can', ru:'лейка', pron:"[ə 'wɔːtərɪŋ kæn]", emoji:"🚿🪴"},
-  {word:'a rake', ru:'грабли', pron:"[ə reɪk]", emoji:"🍂🧹"},
-  {word:'a net', ru:'сачок, сеть', pron:"[ə nɛt]", emoji:"🦋🥅"},
-  {word:'gardening gloves', ru:'садовые перчатки', pron:"['gɑːdnɪŋ glʌvz]", emoji:"🧤🪴"},
-  {word:'a plastic bag', ru:'пластиковый пакет', pron:"[ə 'plæstɪk bæg]", emoji:"🛍️🐢"},
-  {word:'leave/left', ru:'покидать/оставлять', pron:"[liːv/lɛft]", emoji:"🚶‍♂️🚪"},
-  {word:'woods', ru:'лес', pron:"[wʊdz]", emoji:"🌲🌳"},
-  {word:'tropical rainforest', ru:'тропический лес', pron:"['trɒpɪkəl 'reɪnfɒrɪst]", emoji:"🌴🐒"},
-  {word:'desert', ru:'пустыня', pron:"['dɛzət]", emoji:"🐪🏜️"},
-  {word:'polar regions', ru:'полярные регионы', pron:"['pəʊlə 'riːʤənz]", emoji:"🧊🐧"},
-  {word:'wetlands', ru:'болота', pron:"['wɛtləndz]", emoji:"🐸🌾"},
-  {word:'savannah (grassland)', ru:'саванна', pron:"[sə'vænə]", emoji:"🦁🌾"}
+  {word:'a power station', ru:'электростанция', pron:"[ə 'paʊə ˌsteɪʃn]", img: genUrl('industrial power station electricity plant photo'), fb:"🏭"},
+  {word:'factory', ru:'завод', pron:"['fæktəri]", img: genUrl('large industrial factory exterior photo'), fb:"🏭"},
+  {word:'toxic fumes', ru:'токсичные выбросы', pron:"['tɒksɪk 'fjuːmz]", img: genUrl('thick dark toxic smoke coming out of chimney'), fb:"💨"},
+  {word:'factory waste', ru:'промышленные отходы', pron:"['fæktəri weɪst]", img: genUrl('toxic green factory waste barrels'), fb:"🛢️"},
+  {word:'acid rain', ru:'кислотный дождь', pron:"['æsɪd reɪn]", img: genUrl('acid rain hitting dead plants dark photography'), fb:"🌧️"},
+  {word:'polluted clouds', ru:'загрязненные облака', pron:"[pə'luːtɪd klaʊdz]", img: genUrl('dark polluted smog clouds sky'), fb:"☁️"},
+  {word:'loss of natural habitats', ru:'потеря мест обитания', pron:"[lɒs əv 'næʧrəl 'hæbɪtæts]", img: genUrl('deforestation cut down trees destroyed forest'), fb:"🪓"},
+  {word:'air, water and soil pollution', ru:'загрязнение', pron:"[pəˈluːʃn]", img: genUrl('plastic pollution in ocean water realistic'), fb:"🌍"},
+  {word:'fish and plants species dying', ru:'гибель видов', pron:"['spiːʃiːz ˈdaɪɪŋ]", img: genUrl('dead fish near polluted water shore'), fb:"🥀"},
+  {word:'burn', ru:'сжигать', pron:"[bɜːn]", img: genUrl('burning pile of garbage fire'), fb:"🔥"},
+  {word:'emit', ru:'выделять (газы)', pron:"[ɪˈmɪt]", img: genUrl('factory emitting gas into the atmosphere'), fb:"🏭"},
+  {word:'gathered', ru:'собранный', pron:"['gæðəd]", img: genUrl('people gathered together volunteers cleaning'), fb:"🧺"},
+  {word:'oxygen', ru:'кислород', pron:"['ɒksɪdʒən]", img: genUrl('fresh green tree breathing oxygen bubbles'), fb:"🍃"},
+  {word:'atmosphere', ru:'атмосфера', pron:"['ætməsfɪə]", img: genUrl('earth atmosphere from space glowing edge'), fb:"🌐"},
+  {word:'land (verb)', ru:'приземляться', pron:"[lænd]", img: genUrl('airplane landing on a runway'), fb:"🛬"},
+  {word:'sleet', ru:'мокрый снег', pron:"[sliːt]", img: genUrl('cold freezing sleet rain snow weather'), fb:"🌨️"},
+  {word:'wipe out', ru:'уничтожить', pron:"[waɪp aʊt]", img: genUrl('forest destroyed by fire wiped out'), fb:"💥"},
+  {word:'poison (verb)', ru:'отравлять', pron:"['pɔɪzn]", img: genUrl('toxic green poison liquid drop'), fb:"🧪"},
+  {word:'reduce', ru:'уменьшать', pron:"[rɪ'djuːs]", img: genUrl('recycle symbol with a downward arrow green'), fb:"📉"},
+  {word:'harmful', ru:'вредный', pron:"['hɑːmfʊl]", img: genUrl('danger warning sign biohazard harmful'), fb:"⚠️"},
+  {word:'solar power', ru:'солнечная энергия', pron:"['səʊlə 'paʊə]", img: genUrl('solar panels reflecting sun green energy'), fb:"☀️"},
+  {word:'heat', ru:'жара, нагревать', pron:"[hiːt]", img: genUrl('intense summer sun heatwave thermometer'), fb:"🌡️"},
+  {word:'plant flowers', ru:'сажать цветы', pron:"[plɑːnt 'flaʊəz]", img: genUrl('hands planting small flower in soil'), fb:"🌷"},
+  {word:'recycle cans', ru:'перерабатывать банки', pron:"[riː'saɪkl kænz]", img: genUrl('aluminum cans in a green recycle bin'), fb:"♻️"},
+  {word:'collect rubbish', ru:'собирать мусор', pron:"[kə'lekt 'rʌbɪʃ]", img: genUrl('volunteers collecting plastic rubbish bags'), fb:"🗑️"},
+  {word:'build nesting boxes', ru:'строить скворечники', pron:"[bɪld 'nɛstɪŋ 'bɒksɪz]", img: genUrl('wooden bird nesting box on a tree'), fb:"🐦"},
+  {word:'teach the cycle of life', ru:'учить циклу жизни', pron:"[tiːʧ ðə 'saɪkl əv laɪf]", img: genUrl('teacher showing plant growing cycle nature'), fb:"🔄"},
+  {word:'clean out a pond', ru:'вычистить пруд', pron:"[kliːn aʊt ə pɒnd]", img: genUrl('beautiful clean clear water garden pond'), fb:"🦆"},
+  {word:'read a book about ecology', ru:'читать об экологии', pron:"[riːd... ɪ'kɒləʤi]", img: genUrl('open book with a small glowing tree growing from pages'), fb:"📖"},
+  {word:'a ladder', ru:'лестница', pron:"[ə 'lædə]", img: genUrl('tall wooden ladder leaning against a tree'), fb:"🪜"},
+  {word:'a hammer and nails', ru:'молоток и гвозди', pron:"[ə 'hæmər ənd neɪlz]", img: genUrl('hammer and metal nails on wooden table'), fb:"🔨"},
+  {word:'a spade', ru:'лопата', pron:"[ə speɪd]", img: genUrl('garden spade shovel stuck in soil'), fb:"⛏️"},
+  {word:'a watering can', ru:'лейка', pron:"[ə 'wɔːtərɪŋ kæn]", img: genUrl('green garden watering can pouring water'), fb:"🚿"},
+  {word:'a rake', ru:'грабли', pron:"[ə reɪk]", img: genUrl('garden rake pulling autumn leaves'), fb:"🍂"},
+  {word:'a net', ru:'сачок, сеть', pron:"[ə nɛt]", img: genUrl('butterfly catching net summer garden'), fb:"🦋"},
+  {word:'gardening gloves', ru:'садовые перчатки', pron:"['gɑːdnɪŋ glʌvz]", img: genUrl('dirty green gardening gloves near a plant'), fb:"🧤"},
+  {word:'a plastic bag', ru:'пластиковый пакет', pron:"[ə 'plæstɪk bæg]", img: genUrl('clear plastic shopping bag flying in wind'), fb:"🛍️"},
+  {word:'leave/left', ru:'покидать/оставлять', pron:"[liːv/lɛft]", img: genUrl('person walking away leaving nature trail'), fb:"🚪"},
+  {word:'woods', ru:'лес', pron:"[wʊdz]", img: genUrl('beautiful dense green pine woods forest'), fb:"🌲"},
+  {word:'tropical rainforest', ru:'тропический лес', pron:"['trɒpɪkəl 'reɪnfɒrɪst]", img: genUrl('lush green humid tropical rainforest jungle'), fb:"🌴"},
+  {word:'desert', ru:'пустыня', pron:"['dɛzət]", img: genUrl('hot sandy sahara desert dunes'), fb:"🐪"},
+  {word:'polar regions', ru:'полярные регионы', pron:"['pəʊlə 'riːʤənz]", img: genUrl('cold icy polar region with iceberg and snow'), fb:"🧊"},
+  {word:'wetlands', ru:'болота', pron:"['wɛtləndz]", img: genUrl('marshy wetlands swamp with tall grass'), fb:"🐸"},
+  {word:'savannah', ru:'саванна', pron:"[sə'vænə]", img: genUrl('african savannah grassland with acacia tree'), fb:"🦁"}
 ];
 
 function renderCards() {
   const container = document.getElementById('flashcards');
   let html = '';
-  vocab.forEach((v) => {
+  vocab.forEach((v, index) => {
+    const delay = index * 0.05; 
     html += `
-      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card" style="animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) ${delay}s forwards;" onclick="this.classList.toggle('flipped')">
         <div class="flip-inner">
           <div class="flip-front">
             <strong>${v.word}</strong>
             <button class="sound-btn" onclick="event.stopPropagation(); playSound('${v.word.replace(/'/g, "\\'")}')">🔊</button>
           </div>
           <div class="flip-back">
-            <div class="ill-box">${v.emoji}</div>
+            <div class="ill-box">
+              <img src="${v.img}" alt="${v.word}" onerror="this.outerHTML='<div class=\\'emoji-fallback\\'>${v.fb}</div>'">
+            </div>
             <div class="vocab-trans">${v.ru}</div>
             <div class="vocab-pron">${v.pron}</div>
           </div>
@@ -314,70 +282,32 @@ renderCards();
 function playSound(text) {
   if (!window.speechSynthesis) return;
   window.speechSynthesis.cancel();
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = "en-GB";
-  utterance.rate = 0.9;
+  const utterance = new SpeechSynthesisUtterance(text); utterance.lang = "en-GB"; utterance.rate = 0.9;
   window.speechSynthesis.speak(utterance);
 }
 
-/* ================= CHECKING LOGIC ================= */
 const cleanStr = str => str.toLowerCase().replace(/[.,?!]/g, "").replace(/\s+/g, " ").trim();
 
 function checkInput(inputId, correctAnswers) {
-  const inputEl = document.getElementById(inputId);
-  const resultEl = document.getElementById(inputId + "-res");
-  const userVal = cleanStr(inputEl.value);
-  
-  if(!userVal) return;
-
+  const inputEl = document.getElementById(inputId); const resultEl = document.getElementById(inputId + "-res");
+  const userVal = cleanStr(inputEl.value); if(!userVal) return;
   const isCorrect = correctAnswers.some(ans => userVal === cleanStr(ans));
   resultEl.classList.remove("f-correct", "f-wrong");
-  
-  if (isCorrect) {
-    inputEl.style.borderColor = "var(--success)";
-    resultEl.classList.add("show", "f-correct");
-    resultEl.innerHTML = "✨ Excellent! Correct.";
-  } else {
-    inputEl.style.borderColor = "var(--danger)";
-    inputEl.classList.remove("shake");
-    void inputEl.offsetWidth; 
-    inputEl.classList.add("shake");
-    resultEl.classList.add("show", "f-wrong");
-    resultEl.innerHTML = `❌ Incorrect. Try again!`;
-  }
+  if (isCorrect) { inputEl.style.borderColor = "var(--success)"; resultEl.classList.add("show", "f-correct"); resultEl.innerHTML = "✨ Excellent! Correct."; } 
+  else { inputEl.style.borderColor = "var(--danger)"; inputEl.classList.remove("shake"); void inputEl.offsetWidth; inputEl.classList.add("shake"); resultEl.classList.add("show", "f-wrong"); resultEl.innerHTML = `❌ Incorrect. Try again!`; }
 }
 
 function checkMCQ(btn, isCorrect, explanation) {
   const parent = btn.parentNode;
-  Array.from(parent.children).forEach(b => {
-    b.disabled = true;
-    b.style.opacity = "0.6";
-    b.style.cursor = "not-allowed";
-  });
-  
+  Array.from(parent.children).forEach(b => { b.disabled = true; b.style.opacity = "0.5"; b.style.cursor = "not-allowed"; b.style.transform = "none"; });
   btn.style.opacity = "1";
-  
   let feedback = parent.nextElementSibling;
-  if (!feedback || !feedback.classList.contains('feedback')) {
-    feedback = document.createElement('div');
-    feedback.className = 'feedback show';
-    parent.parentNode.appendChild(feedback);
-  }
-
+  if (!feedback || !feedback.classList.contains('feedback')) { feedback = document.createElement('div'); feedback.className = 'feedback show'; parent.parentNode.appendChild(feedback); }
   feedback.classList.remove("f-correct", "f-wrong");
-
-  if (isCorrect) {
-    btn.classList.add("btn-correct");
-    feedback.classList.add("f-correct");
-    feedback.innerHTML = "✨ " + explanation;
-  } else {
-    btn.classList.add("btn-wrong", "shake");
-    feedback.classList.add("f-wrong");
-    feedback.innerHTML = "❌ " + explanation;
-  }
+  if (isCorrect) { btn.classList.add("btn-correct"); feedback.classList.add("f-correct"); feedback.innerHTML = "✨ " + explanation; } 
+  else { btn.classList.add("btn-wrong", "shake"); feedback.classList.add("f-wrong"); feedback.innerHTML = "❌ " + explanation; }
 }
 
-/* ================= RENDER CONTEXT TASKS ================= */
 const contextData = [
   {q: "Factories usually _____ thick, black _____ into the air.", ans: ["emit toxic fumes", "emit, toxic fumes", "emit fumes"]},
   {q: "Pollution leads to the _____ of _____ _____ for wild animals.", ans: ["loss of natural habitats", "loss natural habitats"]},
@@ -392,78 +322,28 @@ const contextData = [
 ];
 
 function renderContext() {
-  const cont = document.getElementById('context-tasks');
-  let h = '';
-  contextData.forEach((task, i) => {
-    h += `
-      <div class="question-wrap">
-        <div class="q-text">${i+1}. ${task.q}</div>
-        <div class="input-flex">
-          <input type="text" id="ctx${i}" placeholder="...">
-          <button class="btn-check" onclick="checkInput('ctx${i}', ${JSON.stringify(task.ans)})">Check</button>
-        </div>
-        <div class="feedback" id="ctx${i}-res"></div>
-      </div>
-    `;
-  });
+  const cont = document.getElementById('context-tasks'); let h = '';
+  contextData.forEach((task, i) => { h += `<div class="question-wrap"><div class="q-text">${i+1}. ${task.q}</div><div class="input-flex"><input type="text" id="ctx${i}" placeholder="Type here..."><button class="btn-check" onclick="checkInput('ctx${i}', ${JSON.stringify(task.ans)})">Check</button></div><div class="feedback" id="ctx${i}-res"></div></div>`; });
   cont.innerHTML = h;
 }
 renderContext();
 
-/* ================= RENDER GRAMMAR TASKS ================= */
-const grPPC = [
-  {t: "input", q: "<b>(+)</b> I _______ (plant) flowers for 2 hours.", ans: ["have been planting", "'ve been planting"]},
-  {t: "mcq", q: "<b>(+)</b> She _______ the pond since morning.", opt: ["has cleaned", "has been cleaning", "is cleaning"], corr: 1, expl: "Action started in the past and continues now."},
-  {t: "input", q: "<b>(-)</b> They _______ (not/collect) rubbish recently. (Use short form)", ans: ["haven't been collecting"]},
-  {t: "input", q: "<b>(-)</b> He _______ (not/emit) fumes.", ans: ["hasn't been emitting", "has not been emitting"]},
-  {t: "input", q: "<b>(?)</b> _______ you _______ (work) in the garden all day?", ans: ["have been working"]},
-  {t: "input", q: "<b>(?)</b> _______ she _______ (read) a book about ecology?", ans: ["has been reading"]}
-];
-
-const grPhrasal = [
-  {t: "mcq", q: "I couldn't _______ what the teacher wrote on the board.", opt: ["make up", "make out", "make up with"], corr: 1, expl: "make out = understand with difficulty."},
-  {t: "input", q: "She didn't want to go, so she _______ an excuse. (Past Simple)", ans: ["made up"]},
-  {t: "input", q: "They argued yesterday, but today they have _______ each other.", ans: ["made up with", "made up"]},
-  {t: "mcq", q: "Don't believe him, he likes to _______ stories.", opt: ["make out", "make up with", "make up"], corr: 2, expl: "make up = invent."}
-];
-
-const grModals = [
-  {t: "mcq", q: "You _______ burn rubbish! It's very harmful.", opt: ["don't have to", "mustn't", "haven't to"], corr: 1, expl: "mustn't = it is forbidden/harmful."},
-  {t: "mcq", q: "It's a holiday today, so we _______ go to school.", opt: ["don't have to", "mustn't", "doesn't have to"], corr: 0, expl: "don't have to = lack of necessity."},
-  {t: "input", q: "She has to collect the rubbish, _______? (Tag)", ans: ["doesn't she"]},
-  {t: "input", q: "They don't have to wear gloves, _______? (Tag)", ans: ["do they"]}
-];
+const grPPC = [ {t: "input", q: "<b>(+)</b> I _______ (plant) flowers for 2 hours.", ans: ["have been planting", "'ve been planting"]}, {t: "mcq", q: "<b>(+)</b> She _______ the pond since morning.", opt: ["has cleaned", "has been cleaning", "is cleaning"], corr: 1, expl: "Action started in the past and continues now."}, {t: "input", q: "<b>(-)</b> They _______ (not/collect) rubbish recently.", ans: ["haven't been collecting"]}, {t: "input", q: "<b>(-)</b> He _______ (not/emit) fumes.", ans: ["hasn't been emitting", "has not been emitting"]}, {t: "input", q: "<b>(?)</b> _______ you _______ (work) in the garden all day?", ans: ["have been working"]}, {t: "input", q: "<b>(?)</b> _______ she _______ (read) a book about ecology?", ans: ["has been reading"]} ];
+const grPhrasal = [ {t: "mcq", q: "I couldn't _______ what the teacher wrote on the board.", opt: ["make up", "make out", "make up with"], corr: 1, expl: "make out = understand with difficulty."}, {t: "input", q: "She didn't want to go, so she _______ an excuse. (Past)", ans: ["made up"]}, {t: "input", q: "They argued yesterday, but today they have _______ each other.", ans: ["made up with", "made up"]}, {t: "mcq", q: "Don't believe him, he likes to _______ stories.", opt: ["make out", "make up with", "make up"], corr: 2, expl: "make up = invent."} ];
+const grModals = [ {t: "mcq", q: "You _______ burn rubbish! It's very harmful.", opt: ["don't have to", "mustn't", "haven't to"], corr: 1, expl: "mustn't = it is forbidden/harmful."}, {t: "mcq", q: "It's a holiday today, so we _______ go to school.", opt: ["don't have to", "mustn't", "doesn't have to"], corr: 0, expl: "don't have to = lack of necessity."}, {t: "input", q: "She has to collect the rubbish, _______? (Tag)", ans: ["doesn't she"]}, {t: "input", q: "They don't have to wear gloves, _______? (Tag)", ans: ["do they"]} ];
 
 function renderGrammar(arr, containerId) {
-  const cont = document.getElementById(containerId);
-  let h = '';
+  const cont = document.getElementById(containerId); let h = '';
   arr.forEach((item, i) => {
     h += `<div class="question-wrap"><div class="q-text">${i+1}. ${item.q}</div>`;
-    if(item.t === "input") {
-      h += `
-        <div class="input-flex">
-          <input type="text" id="${containerId}-q${i}" placeholder="...">
-          <button class="btn-check" onclick="checkInput('${containerId}-q${i}', ${JSON.stringify(item.ans)})">Check</button>
-        </div>
-        <div class="feedback" id="${containerId}-q${i}-res"></div>
-      `;
-    } else {
-      h += `<div class="mcq-grid">`;
-      item.opt.forEach((o, oIdx) => {
-        const isCorr = (oIdx === item.corr);
-        h += `<button class="mcq-btn" onclick="checkMCQ(this, ${isCorr}, '${item.expl.replace(/'/g, "\\'")}')">${o}</button>`;
-      });
-      h += `</div>`;
-    }
+    if(item.t === "input") { h += `<div class="input-flex"><input type="text" id="${containerId}-q${i}" placeholder="Type here..."><button class="btn-check" onclick="checkInput('${containerId}-q${i}', ${JSON.stringify(item.ans)})">Check</button></div><div class="feedback" id="${containerId}-q${i}-res"></div>`; } 
+    else { h += `<div class="mcq-grid">`; item.opt.forEach((o, oIdx) => { h += `<button class="mcq-btn" onclick="checkMCQ(this, ${oIdx === item.corr}, '${item.expl.replace(/'/g, "\\'")}')">${o}</button>`; }); h += `</div>`; }
     h += `</div>`;
   });
   cont.innerHTML = h;
 }
-renderGrammar(grPPC, 'grammar-ppc-tasks');
-renderGrammar(grPhrasal, 'grammar-phrasal-tasks');
-renderGrammar(grModals, 'grammar-modal-tasks');
+renderGrammar(grPPC, 'grammar-ppc-tasks'); renderGrammar(grPhrasal, 'grammar-phrasal-tasks'); renderGrammar(grModals, 'grammar-modal-tasks');
 
-/* ================= FINAL TEST (15 Questions) ================= */
 const testData = [
   { t: "mcq", q: "Which tool has 'nails' with it?", opt: ["a spade", "a rake", "a hammer"], corr: 2 },
   { t: "input", q: "Acid rain can _____ _____ entire woods. (destroy)", ans: ["wipe out"] },
@@ -477,27 +357,18 @@ const testData = [
   { t: "input", q: "PPC Question: _______ she _______ (plant) flowers?", ans: ["has been planting"] },
   { t: "mcq", q: "Which of these is NOT an ecosystem?", opt: ["tropical rainforest", "factory waste", "wetlands", "savannah"], corr: 1 },
   { t: "input", q: "To protect your hands in the garden, wear _____ _____.", ans: ["gardening gloves"] },
-  { t: "mcq", q: "You _______ buy a plastic bag, you can bring a paper one. (Not necessary)", opt: ["mustn't", "don't have to", "haven't to"], corr: 1 },
+  { t: "mcq", q: "You _______ buy a plastic bag, you can bring a paper one.", opt: ["mustn't", "don't have to", "haven't to"], corr: 1 },
   { t: "input", q: "Question Tag: She has to clean a pond, _______?", ans: ["doesn't she"] },
   { t: "input", q: "A mix of rain and snow is called _______.", ans: ["sleet"] }
 ];
 
 function renderTest() {
-  const cont = document.getElementById('test-questions');
-  let h = '';
+  const cont = document.getElementById('test-questions'); let h = '';
   testData.forEach((item, i) => {
-    h += `<div class="question-wrap" style="background: #ffffff; padding: 20px; border-radius: 16px; margin-bottom: 20px; border: 1px solid #e2e8f0;">`;
+    h += `<div class="question-wrap" style="background: white; padding: 25px; border-radius: 16px; margin-bottom: 25px; border: 1px solid #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.02);">`;
     h += `<div class="q-text" style="color: var(--text-dark);">${i + 1}. ${item.q}</div>`;
-    
-    if (item.t === "input") {
-      h += `<input type="text" id="test-q${i}" class="test-input" placeholder="...">`;
-    } else if (item.t === "mcq") {
-      h += `<div class="mcq-grid" id="test-q${i}">`;
-      item.opt.forEach((opt, optIdx) => {
-        h += `<button class="mcq-btn test-mcq" data-correct="${optIdx === item.corr}" onclick="selectTestMCQ(this)">${opt}</button>`;
-      });
-      h += `</div>`;
-    }
+    if (item.t === "input") { h += `<input type="text" id="test-q${i}" class="test-input" placeholder="Your answer...">`; } 
+    else if (item.t === "mcq") { h += `<div class="mcq-grid" id="test-q${i}">`; item.opt.forEach((opt, optIdx) => { h += `<button class="mcq-btn test-mcq" data-correct="${optIdx === item.corr}" onclick="selectTestMCQ(this)">${opt}</button>`; }); h += `</div>`; }
     h += `</div>`;
   });
   cont.innerHTML = h;
@@ -506,43 +377,23 @@ renderTest();
 
 function selectTestMCQ(btn) {
   const parent = btn.parentNode;
-  Array.from(parent.children).forEach(b => {
-    b.style.borderColor = "#d1d5db";
-    b.style.background = "white";
-    b.classList.remove('selected');
-  });
-  btn.style.borderColor = "var(--primary)";
-  btn.style.background = "#e0f2e9";
-  btn.classList.add('selected');
+  Array.from(parent.children).forEach(b => { b.style.borderColor = "#cbd5e1"; b.style.background = "white"; b.classList.remove('selected'); });
+  btn.style.borderColor = "var(--primary)"; btn.style.background = "#e0f2e9"; btn.classList.add('selected');
 }
 
 function calculateScore() {
   let score = 0;
   testData.forEach((item, i) => {
-    if (item.t === "input") {
-      const val = cleanStr(document.getElementById(`test-q${i}`).value);
-      if (item.ans.some(a => cleanStr(a) === val)) score++;
-    } else if (item.t === "mcq") {
-      const parent = document.getElementById(`test-q${i}`);
-      const selected = parent.querySelector('.selected');
-      if (selected && selected.getAttribute('data-correct') === "true") score++;
-    }
+    if (item.t === "input") { const val = cleanStr(document.getElementById(`test-q${i}`).value); if (item.ans.some(a => cleanStr(a) === val)) score++; } 
+    else if (item.t === "mcq") { const selected = document.getElementById(`test-q${i}`).querySelector('.selected'); if (selected && selected.getAttribute('data-correct') === "true") score++; }
   });
-
-  const total = testData.length;
-  const percent = Math.round((score / total) * 100);
-  
+  const total = testData.length; const percent = Math.round((score / total) * 100);
   document.getElementById('test-container').classList.add('hidden');
-  const resScreen = document.getElementById('test-results');
-  resScreen.classList.remove('hidden');
-  resScreen.classList.add('fade-up');
-  
+  const resScreen = document.getElementById('test-results'); resScreen.classList.remove('hidden'); resScreen.classList.add('fade-up');
   document.getElementById('score-text').innerText = `${score}/${total}`;
-  const circle = document.getElementById('score-circle');
-  circle.style.background = `conic-gradient(var(--primary) ${percent}%, #e5e7eb ${percent}%)`;
+  setTimeout(() => { document.getElementById('score-circle').style.background = `conic-gradient(var(--primary) ${percent}%, #e5e7eb ${percent}%)`; }, 100);
   
-  const msg = document.getElementById('score-msg');
-  const desc = document.getElementById('score-desc');
+  const msg = document.getElementById('score-msg'); const desc = document.getElementById('score-desc');
   if (percent === 100) { msg.innerText = "🏆 Perfect Score!"; desc.innerText = "Absolutely flawless! You know Module 8 perfectly."; }
   else if (percent >= 80) { msg.innerText = "⭐ Great Job!"; desc.innerText = "You have a very strong understanding of the vocabulary and grammar."; }
   else if (percent >= 50) { msg.innerText = "👍 Good Effort!"; desc.innerText = "You know the basics, but reviewing the flashcards again will help."; }
