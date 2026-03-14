@@ -7,19 +7,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-gradient: linear-gradient(135deg, #e0f2e9 0%, #f4fbf7 100%);
-      --glass-bg: rgba(255, 255, 255, 0.85);
-      --glass-border: rgba(255, 255, 255, 0.4);
+      --bg-gradient: linear-gradient(135deg, #dcfce7 0%, #f0fdf4 100%);
+      --glass-bg: rgba(255, 255, 255, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.5);
       --primary: #059669;
       --primary-hover: #047857;
       --secondary: #34d399;
-      --text-dark: #1f2937;
-      --text-light: #4b5563;
+      --text-dark: #064e3b;
+      --text-light: #0f766e;
       --danger: #ef4444;
       --success: #10b981;
-      --shadow-soft: 0 10px 30px rgba(5, 150, 105, 0.08);
-      --shadow-hover: 0 20px 40px rgba(5, 150, 105, 0.15);
-      --radius: 24px;
+      --shadow-soft: 0 8px 32px rgba(5, 150, 105, 0.1);
+      --shadow-hover: 0 15px 40px rgba(5, 150, 105, 0.2);
+      --radius: 20px;
       --font: 'Poppins', sans-serif;
     }
 
@@ -27,56 +27,54 @@
     body { font-family: var(--font); background: var(--bg-gradient); color: var(--text-dark); min-height: 100vh; overflow-x: hidden; scroll-behavior: smooth; }
 
     /* ANIMATIONS */
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-8px); } 100% { transform: translateY(0px); } }
-    @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); } 70% { box-shadow: 0 0 0 15px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+    @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5); } 70% { box-shadow: 0 0 0 15px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
 
     .fade-up { animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
     .shake { animation: shake 0.4s ease; }
 
     /* NAVBAR */
-    nav { background: var(--glass-bg); backdrop-filter: blur(12px); border-bottom: 1px solid var(--glass-border); position: sticky; top: 0; z-index: 100; padding: 15px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
-    nav ul { display: flex; justify-content: center; gap: 15px; list-style: none; flex-wrap: wrap; padding: 0 15px; }
-    nav a { text-decoration: none; color: var(--text-light); font-weight: 700; padding: 10px 25px; border-radius: 100px; transition: 0.3s; font-size: 1.05rem; }
+    nav { background: var(--glass-bg); backdrop-filter: blur(15px); border-bottom: 1px solid var(--glass-border); position: sticky; top: 0; z-index: 100; padding: 15px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+    nav ul { display: flex; justify-content: center; gap: 10px; list-style: none; flex-wrap: wrap; padding: 0 10px; }
+    nav a { text-decoration: none; color: var(--text-light); font-weight: 700; padding: 10px 20px; border-radius: 30px; transition: 0.3s; font-size: 1rem; }
     nav a:hover, nav a.active { background: var(--primary); color: white; box-shadow: 0 8px 20px rgba(5, 150, 105, 0.3); transform: translateY(-2px); }
 
     /* LAYOUT */
     .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
     .section-title { font-size: 2.2rem; color: var(--primary); margin-bottom: 30px; display: inline-block; position: relative; }
-    .section-title::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 60%; height: 4px; background: var(--secondary); border-radius: 10px; }
+    .section-title::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 50%; height: 5px; background: var(--secondary); border-radius: 10px; }
     .glass-card { background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: var(--radius); padding: 35px; box-shadow: var(--shadow-soft); margin-bottom: 40px; }
 
     /* FLASHCARDS */
-    .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; }
-    .flip-card { height: 260px; perspective: 1200px; cursor: pointer; }
-    .flip-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d; }
+    .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+    .flip-card { height: 260px; perspective: 1000px; cursor: pointer; }
+    .flip-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d; }
     .flip-card.flipped .flip-inner { transform: rotateY(180deg); }
-    .flip-front, .flip-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: var(--radius); background: white; box-shadow: var(--shadow-soft); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; border: 2px solid transparent; transition: 0.3s; }
-    .flip-card:hover .flip-front { border-color: var(--secondary); transform: translateY(-8px); box-shadow: var(--shadow-hover); }
     
-    .flip-front strong { font-size: 1.2rem; color: var(--text-dark); margin-bottom: 15px; }
-    .sound-btn { background: var(--secondary); color: white; border: none; border-radius: 50%; width: 55px; height: 55px; font-size: 1.5rem; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(52, 211, 153, 0.4); }
-    .sound-btn:hover { background: var(--primary); transform: scale(1.1) rotate(10deg); }
+    .flip-front, .flip-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: var(--radius); background: white; box-shadow: var(--shadow-soft); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; border: 2px solid transparent; transition: 0.3s; }
+    .flip-card:hover .flip-front { border-color: var(--secondary); transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+    
+    .flip-front strong { font-size: 1.25rem; color: var(--text-dark); margin-bottom: 15px; }
+    .sound-btn { background: var(--secondary); color: white; border: none; border-radius: 50%; width: 55px; height: 55px; font-size: 1.6rem; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(52, 211, 153, 0.4); }
+    .sound-btn:hover { background: var(--primary); transform: scale(1.1); }
     
     .flip-back { transform: rotateY(180deg); justify-content: flex-start; background: #f8fafc; }
-    /* AI Generated Image placeholder */
-    .ai-image { width: 100%; height: 120px; object-fit: cover; border-radius: 14px; margin-bottom: 12px; background: #e2e8f0; animation: pulse-bg 2s infinite; }
-    @keyframes pulse-bg { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
+    
+    /* VECTOR EMOJI ILLUSTRATIONS (100% Reliable) */
+    .ill-box { width: 100%; height: 110px; border-radius: 15px; margin-bottom: 15px; display: flex; justify-content: center; align-items: center; font-size: 3.5rem; background: linear-gradient(135deg, #a7f3d0, #6ee7b7); box-shadow: inset 0 2px 10px rgba(0,0,0,0.05); }
     
     .flip-back .vocab-trans { font-size: 1.1rem; font-weight: 800; color: var(--primary); margin-bottom: 5px; line-height: 1.2; }
-    .flip-back .vocab-pron { font-size: 0.9rem; color: var(--text-light); }
+    .flip-back .vocab-pron { font-size: 0.95rem; color: var(--text-light); }
 
     /* GRAMMAR RULES */
-    .rule-box { background: linear-gradient(135deg, #ffffff, #f0fdf4); border-left: 6px solid var(--primary); padding: 20px; border-radius: 16px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
-    .rule-box h4 { color: var(--primary); margin-bottom: 10px; font-size: 1.2rem; }
+    .rule-box { background: white; border-left: 6px solid var(--primary); padding: 20px; border-radius: 16px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+    .rule-box h4 { color: var(--primary); margin-bottom: 10px; font-size: 1.3rem; }
     .rule-box p { margin-bottom: 8px; font-size: 1.05rem; }
-    .rule-table { width: 100%; border-collapse: collapse; margin-top: 15px; background: white; border-radius: 12px; overflow: hidden; }
-    .rule-table th, .rule-table td { padding: 12px; text-align: left; border-bottom: 1px solid #e5e7eb; }
-    .rule-table th { background: var(--primary); color: white; }
-
-    /* QUESTIONS & INPUTS */
-    .question-wrap { margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px dashed #cbd5e1; }
+    
+    /* TASKS */
+    .task-group { margin-bottom: 40px; }
+    .question-wrap { margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px dashed #cbd5e1; }
     .question-wrap:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
     .q-text { font-size: 1.15rem; font-weight: 500; margin-bottom: 15px; }
     
@@ -86,7 +84,6 @@
     
     .btn-check { background: var(--primary); color: white; border: none; padding: 14px 28px; border-radius: 14px; font-weight: 700; font-size: 1.05rem; cursor: pointer; transition: 0.3s; box-shadow: 0 6px 15px rgba(5, 150, 105, 0.2); }
     .btn-check:hover { background: var(--primary-hover); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(5, 150, 105, 0.3); }
-    .btn-check:active { transform: translateY(0); }
 
     .mcq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
     .mcq-btn { padding: 14px; background: white; border: 2px solid #d1d5db; border-radius: 14px; font-family: var(--font); font-weight: 700; font-size: 1.05rem; color: var(--text-dark); cursor: pointer; transition: 0.3s; }
@@ -94,31 +91,30 @@
 
     /* FEEDBACK */
     .feedback { display: block; margin-top: 10px; font-weight: 700; font-size: 1rem; opacity: 0; transition: 0.3s; height: 0; overflow: hidden; }
-    .feedback.show { opacity: 1; height: auto; margin-top: 12px; padding: 10px; border-radius: 10px; }
-    .f-correct { background: #dcfce7; color: var(--success); }
-    .f-wrong { background: #fee2e2; color: var(--danger); }
+    .feedback.show { opacity: 1; height: auto; margin-top: 12px; padding: 12px; border-radius: 10px; }
+    .f-correct { background: #dcfce7; color: var(--success); border: 1px solid #86efac; }
+    .f-wrong { background: #fee2e2; color: var(--danger); border: 1px solid #fca5a5; }
     .btn-correct { background: var(--success) !important; color: white !important; border-color: var(--success) !important; animation: pulse-green 1s; }
     .btn-wrong { background: var(--danger) !important; color: white !important; border-color: var(--danger) !important; }
 
     /* TEST RESULTS */
-    #test-results { text-align: center; padding: 40px 20px; display: none; }
-    .score-circle { width: 150px; height: 150px; border-radius: 50%; background: conic-gradient(var(--primary) 0%, #e5e7eb 0%); display: flex; justify-content: center; align-items: center; margin: 0 auto 20px; font-size: 2.5rem; font-weight: 800; color: var(--primary); position: relative; }
-    .score-circle::before { content: ''; position: absolute; width: 120px; height: 120px; background: var(--glass-bg); border-radius: 50%; }
+    #test-results { text-align: center; padding: 40px 20px; }
+    .score-circle { width: 160px; height: 160px; border-radius: 50%; background: conic-gradient(var(--primary) 0%, #e5e7eb 0%); display: flex; justify-content: center; align-items: center; margin: 0 auto 20px; font-size: 2.5rem; font-weight: 800; color: var(--primary); position: relative; }
+    .score-circle::before { content: ''; position: absolute; width: 130px; height: 130px; background: var(--glass-bg); border-radius: 50%; }
     .score-text { position: relative; z-index: 1; }
 
     .hidden { display: none !important; }
 
     /* RESPONSIVE */
     @media (max-width: 768px) {
-      nav a { padding: 8px 16px; font-size: 0.95rem; }
-      .container { padding: 20px 15px; }
+      nav a { padding: 8px 14px; font-size: 0.95rem; }
+      .container { padding: 20px 10px; }
       .section-title { font-size: 1.8rem; }
       .glass-card { padding: 20px; }
-      .vocab-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
-      .flip-card { height: 220px; }
-      .flip-front strong { font-size: 1.05rem; }
-      .ai-image { height: 90px; }
-      .rule-table th, .rule-table td { font-size: 0.9rem; padding: 8px; }
+      .vocab-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+      .flip-card { height: 230px; }
+      .ill-box { height: 90px; font-size: 3rem; }
+      .flip-front strong { font-size: 1.1rem; }
     }
   </style>
 </head>
@@ -138,8 +134,8 @@
   <!-- ================= 1. VOCABULARY SECTION ================= -->
   <section id="page-0" class="fade-up">
     <h2 class="section-title">Vocabulary Flashcards</h2>
-    <p style="color: var(--text-light); margin-bottom: 25px; font-size: 1.1rem;">
-      All 43 Module 8 words. <b>Images are AI-generated on the fly!</b> Click 🔊 to listen. Click the card to flip.
+    <p style="color: var(--text-light); margin-bottom: 25px; font-size: 1.1rem; font-weight: 500;">
+      All 43 Module 8 words. Click 🔊 to listen. Click the card to flip and see the translation & illustration.
     </p>
     <div class="vocab-grid" id="flashcards"></div>
   </section>
@@ -149,62 +145,11 @@
     <h2 class="section-title">Vocabulary in Context</h2>
     <div class="glass-card">
       <div class="rule-box">
-        <p>Type the correct word/phrase from the vocabulary list into the gaps to complete the story and sentences.</p>
+        <p>Type the correct missing word from the flashcards into the gaps. Do not use hints!</p>
       </div>
       
-      <div class="question-wrap">
-        <div class="q-text">1. Factories often <b>_____</b> thick, black <b>_____ _____</b> into the atmosphere. (2 gaps, separate with comma: e.g. word, word)</div>
-        <div class="input-flex">
-          <input type="text" id="ctx1" placeholder="e.g. emit, toxic fumes">
-          <button class="btn-check" onclick="checkInput('ctx1', ['emit, toxic fumes', 'emit, toxic fumes'])">Check</button>
-        </div>
-        <div class="feedback" id="ctx1-res"></div>
-      </div>
-
-      <div class="question-wrap">
-        <div class="q-text">2. <b>_____ _____</b> falls from polluted clouds and can <b>_____ _____</b> entire forests.</div>
-        <div class="input-flex">
-          <input type="text" id="ctx2" placeholder="e.g. acid rain, wipe out">
-          <button class="btn-check" onclick="checkInput('ctx2', ['acid rain, wipe out'])">Check</button>
-        </div>
-        <div class="feedback" id="ctx2-res"></div>
-      </div>
-
-      <div class="question-wrap">
-        <div class="q-text">3. Deforestation leads to the <b>_____ of _____ _____</b> for many animals.</div>
-        <div class="input-flex">
-          <input type="text" id="ctx3" placeholder="e.g. loss, natural habitats">
-          <button class="btn-check" onclick="checkInput('ctx3', ['loss of natural habitats', 'loss, natural habitats'])">Check</button>
-        </div>
-        <div class="feedback" id="ctx3-res"></div>
-      </div>
-
-      <div class="question-wrap">
-        <div class="q-text">4. To help birds in spring, we can <b>_____ _____ _____</b> in the trees.</div>
-        <div class="input-flex">
-          <input type="text" id="ctx4" placeholder="...">
-          <button class="btn-check" onclick="checkInput('ctx4', ['build nesting boxes'])">Check</button>
-        </div>
-        <div class="feedback" id="ctx4-res"></div>
-      </div>
-
-      <div class="question-wrap">
-        <div class="q-text">5. Instead of throwing things away, we should <b>_____ _____</b> and glass bottles.</div>
-        <div class="input-flex">
-          <input type="text" id="ctx5" placeholder="...">
-          <button class="btn-check" onclick="checkInput('ctx5', ['recycle cans'])">Check</button>
-        </div>
-        <div class="feedback" id="ctx5-res"></div>
-      </div>
-      
-      <div class="question-wrap">
-        <div class="q-text">6. To work in the garden, you need a <b>_____</b> to dig, and a <b>_____ _____</b> to give water to plants.</div>
-        <div class="input-flex">
-          <input type="text" id="ctx6" placeholder="word, word word">
-          <button class="btn-check" onclick="checkInput('ctx6', ['spade, watering can'])">Check</button>
-        </div>
-        <div class="feedback" id="ctx6-res"></div>
-      </div>
+      <!-- Generated via JS -->
+      <div id="context-tasks"></div>
     </div>
   </section>
 
@@ -214,120 +159,62 @@
 
     <!-- PRESENT PERFECT CONTINUOUS -->
     <div class="glass-card">
-      <h3 style="font-size: 1.5rem; color: var(--primary); margin-bottom: 15px;">A. Present Perfect Continuous</h3>
+      <h3 style="font-size: 1.6rem; color: var(--primary); margin-bottom: 15px;">A. Present Perfect Continuous</h3>
       <div class="rule-box">
-        <h4>Формы (Forms)</h4>
-        <p>Используется для действий, которые начались в прошлом и всё ещё длятся, либо только что завершились и есть видимый результат.</p>
-        <table class="rule-table">
-          <tr><th>Type</th><th>Formula</th><th>Example</th></tr>
-          <tr><td><b>(+) Affirmative</b></td><td>have/has + been + V-ing</td><td>He <b>has been planting</b> trees.</td></tr>
-          <tr><td><b>(-) Negative</b></td><td>have/has + not + been + V-ing</td><td>We <b>haven't been recycling</b>.</td></tr>
-          <tr><td><b>(?) Question</b></td><td>Have/Has + subject + been + V-ing?</td><td><b>Have</b> you <b>been reading</b>?</td></tr>
-        </table>
+        <h4>Правило (Rule)</h4>
+        <p>Используем <b>have/has been + V-ing</b> для действий, которые начались в прошлом и всё ещё продолжаются (или закончились только что, и есть видимый результат).</p>
+        <p><b>(+) Утверждение:</b> I have been working.<br>
+        <b>(-) Отрицание:</b> She hasn't been sleeping.<br>
+        <b>(?) Вопрос:</b> Have they been playing?</p>
       </div>
       
-      <div class="question-wrap">
-        <div class="q-text">1. <b>(+)</b> It ___ (rain) since morning, so the ground is wet.</div>
-        <div class="mcq-grid">
-          <button class="mcq-btn" onclick="checkMCQ(this, false, 'No, this is Present Continuous.')">is raining</button>
-          <button class="mcq-btn" onclick="checkMCQ(this, true, 'Correct! Action started in the past and has a result now.')">has been raining</button>
-          <button class="mcq-btn" onclick="checkMCQ(this, false, 'No, this is Past Simple.')">rained</button>
-        </div>
-      </div>
-
-      <div class="question-wrap">
-        <div class="q-text">2. <b>(-)</b> Make it negative: <i>"They / clean out / the pond / for an hour."</i> (Use short form)</div>
-        <div class="input-flex">
-          <input type="text" id="gr1" placeholder="...">
-          <button class="btn-check" onclick="checkInput('gr1', ['They haven\'t been cleaning out the pond for an hour', 'They have not been cleaning out the pond for an hour'])">Check</button>
-        </div>
-        <div class="feedback" id="gr1-res"></div>
-      </div>
-
-      <div class="question-wrap">
-        <div class="q-text">3. <b>(?)</b> Make a question: <i>"she / collect rubbish / all day?"</i></div>
-        <div class="input-flex">
-          <input type="text" id="gr2" placeholder="...">
-          <button class="btn-check" onclick="checkInput('gr2', ['Has she been collecting rubbish all day?', 'Has she been collecting rubbish all day'])">Check</button>
-        </div>
-        <div class="feedback" id="gr2-res"></div>
-      </div>
+      <div class="task-group" id="grammar-ppc-tasks"></div>
     </div>
 
     <!-- PHRASAL VERBS -->
     <div class="glass-card">
-      <h3 style="font-size: 1.5rem; color: var(--primary); margin-bottom: 15px;">B. Phrasal Verbs (Make)</h3>
+      <h3 style="font-size: 1.6rem; color: var(--primary); margin-bottom: 15px;">B. Phrasal Verbs (Make)</h3>
       <div class="rule-box">
-        <p><b>make up</b> = invent a story/excuse (выдумывать)</p>
-        <p><b>make up with</b> = become friends again after a fight (помириться)</p>
-        <p><b>make out</b> = understand or see with difficulty (с трудом разобрать/понять)</p>
+        <p><b>make up</b> = выдумать историю/оправдание.</p>
+        <p><b>make up with</b> = помириться с кем-то.</p>
+        <p><b>make out</b> = с трудом разобрать, понять или увидеть.</p>
       </div>
 
-      <div class="question-wrap">
-        <div class="q-text">1. It was dark, and I couldn't ___ the sign on the door.</div>
-        <div class="mcq-grid">
-          <button class="mcq-btn" onclick="checkMCQ(this, false, 'make up means to invent')">make up</button>
-          <button class="mcq-btn" onclick="checkMCQ(this, true, 'Correct! make out = discern/see')">make out</button>
-          <button class="mcq-btn" onclick="checkMCQ(this, false, 'make up with means to reconcile')">make up with</button>
-        </div>
-      </div>
-
-      <div class="question-wrap">
-        <div class="q-text">2. That's not true! You just ___ the whole story! (Past Simple)</div>
-        <div class="input-flex">
-          <input type="text" id="gr3" placeholder="...">
-          <button class="btn-check" onclick="checkInput('gr3', ['made up'])">Check</button>
-        </div>
-        <div class="feedback" id="gr3-res"></div>
-      </div>
+      <div class="task-group" id="grammar-phrasal-tasks"></div>
     </div>
 
     <!-- MODALS & QUESTION TAGS -->
     <div class="glass-card">
-      <h3 style="font-size: 1.5rem; color: var(--primary); margin-bottom: 15px;">C. Modals & Question Tags</h3>
+      <h3 style="font-size: 1.6rem; color: var(--primary); margin-bottom: 15px;">C. Modals & Question Tags</h3>
       <div class="rule-box">
-        <p><b>have to</b> = necessary (нужно). <b>don't have to</b> = not necessary (не обязательно).</p>
-        <p><b>Tags:</b> Positive sentence -> Negative tag (<i>You read, don't you?</i>). Negative sentence -> Positive tag (<i>She isn't, is she?</i>)</p>
+        <p><b>have to</b> = нужно, необходимо. <b>don't have to</b> = не обязательно.</p>
+        <p><b>Tags (хвостики):</b> Утверждение -> отрицательный хвостик (<i>You read, don't you?</i>). Отрицание -> положительный хвостик (<i>She isn't, is she?</i>)</p>
       </div>
 
-      <div class="question-wrap">
-        <div class="q-text">1. You ___ buy plastic bags, you can use paper ones. (Не обязательно)</div>
-        <div class="mcq-grid">
-          <button class="mcq-btn" onclick="checkMCQ(this, true, 'Correct! don\'t have to = lack of necessity.')">don't have to</button>
-          <button class="mcq-btn" onclick="checkMCQ(this, false, 'mustn\'t means it is forbidden.')">mustn't</button>
-          <button class="mcq-btn" onclick="checkMCQ(this, false, 'haven\'t to is grammatically incorrect.')">haven't to</button>
-        </div>
-      </div>
-
-      <div class="question-wrap">
-        <div class="q-text">2. We have to teach the cycle of life, ___? (Write the tag)</div>
-        <div class="input-flex">
-          <input type="text" id="gr4" placeholder="...">
-          <button class="btn-check" onclick="checkInput('gr4', ['don\'t we', 'do not we'])">Check</button>
-        </div>
-        <div class="feedback" id="gr4-res"></div>
-      </div>
+      <div class="task-group" id="grammar-modal-tasks"></div>
     </div>
   </section>
 
   <!-- ================= 4. FINAL TEST ================= -->
   <section id="page-3" class="hidden fade-up">
-    <h2 class="section-title">🏆 Final Mini-Test</h2>
+    <h2 class="section-title">🏆 Final Mega-Test</h2>
     <div class="glass-card" id="test-container">
-      <p style="margin-bottom: 20px; font-size: 1.1rem; color: var(--text-light);">Answer all 8 questions to get your score!</p>
+      <p style="margin-bottom: 25px; font-size: 1.15rem; color: var(--text-dark); font-weight: 500;">
+        Complete all 15 questions to check your knowledge of Module 8!
+      </p>
       
-      <!-- Generated JS Test questions will go here -->
       <div id="test-questions"></div>
       
-      <button class="btn-check" style="width: 100%; margin-top: 20px; font-size: 1.2rem; padding: 20px;" onclick="calculateScore()">Submit Test</button>
+      <button class="btn-check" style="width: 100%; margin-top: 30px; font-size: 1.3rem; padding: 20px;" onclick="calculateScore()">Submit Test</button>
     </div>
 
     <div class="glass-card hidden" id="test-results">
       <div class="score-circle" id="score-circle">
-        <span class="score-text" id="score-text">0/8</span>
+        <span class="score-text" id="score-text">0/15</span>
       </div>
-      <h3 style="font-size: 2rem; color: var(--text-dark);" id="score-msg">Good Job!</h3>
-      <button class="btn-check" style="margin-top: 20px;" onclick="location.reload()">Restart Revision</button>
+      <h3 style="font-size: 2.2rem; color: var(--text-dark); margin-bottom: 15px;" id="score-msg">Good Job!</h3>
+      <p id="score-desc" style="font-size: 1.2rem; color: var(--text-light); margin-bottom: 25px;"></p>
+      <button class="btn-check" style="font-size: 1.1rem;" onclick="location.reload()">Restart Revision</button>
     </div>
   </section>
 
@@ -342,7 +229,7 @@ function showPage(n) {
     if(i === n) {
       el.classList.remove("hidden");
       el.classList.remove("fade-up");
-      void el.offsetWidth; // trigger reflow
+      void el.offsetWidth;
       el.classList.add("fade-up");
     } else {
       el.classList.add("hidden");
@@ -352,64 +239,58 @@ function showPage(n) {
   window.scrollTo(0, 0);
 }
 
-/* ================= ALL VOCABULARY DATA (43 words) ================= */
-// Using Pollinations.ai to generate images on the fly based on the word.
+/* ================= VOCABULARY DATA (WITH 100% RELIABLE EMOJIS) ================= */
 const vocab = [
-  {word:'a power station', ru:'электростанция', pron:"[ə 'paʊə ˌsteɪʃn]"},
-  {word:'factory', ru:'завод', pron:"['fæktəri]"},
-  {word:'toxic fumes', ru:'токсичные выбросы', pron:"['tɒksɪk 'fjuːmz]"},
-  {word:'factory waste', ru:'промышленные отходы', pron:"['fæktəri weɪst]"},
-  {word:'acid rain', ru:'кислотный дождь', pron:"['æsɪd reɪn]"},
-  {word:'polluted clouds', ru:'загрязненные облака', pron:"[pə'luːtɪd klaʊdz]"},
-  {word:'loss of natural habitats', ru:'потеря мест обитания', pron:"[lɒs əv 'næʧrəl 'hæbɪtæts]"},
-  {word:'air, water and soil pollution', ru:'загрязнение воздуха, воды, почвы', pron:"[pəˈluːʃn]"},
-  {word:'fish and plants species dying', ru:'гибель видов рыб и растений', pron:"['spiːʃiːz ˈdaɪɪŋ]"},
-  {word:'burn', ru:'сжигать', pron:"[bɜːn]"},
-  {word:'emit', ru:'выделять (газы)', pron:"[ɪˈmɪt]"},
-  {word:'gathered', ru:'собранный', pron:"['gæðəd]"},
-  {word:'oxygen', ru:'кислород', pron:"['ɒksɪdʒən]"},
-  {word:'atmosphere', ru:'атмосфера', pron:"['ætməsfɪə]"},
-  {word:'land (verb)', ru:'приземляться', pron:"[lænd]"},
-  {word:'sleet', ru:'мокрый снег', pron:"[sliːt]"},
-  {word:'wipe out', ru:'уничтожить', pron:"[waɪp aʊt]"},
-  {word:'poison (verb)', ru:'отравлять', pron:"['pɔɪzn]"},
-  {word:'reduce', ru:'уменьшать', pron:"[rɪ'djuːs]"},
-  {word:'harmful', ru:'вредный', pron:"['hɑːmfʊl]"},
-  {word:'solar power', ru:'солнечная энергия', pron:"['səʊlə 'paʊə]"},
-  {word:'heat', ru:'жара, нагревать', pron:"[hiːt]"},
-  {word:'plant flowers', ru:'сажать цветы', pron:"[plɑːnt 'flaʊəz]"},
-  {word:'recycle cans', ru:'перерабатывать банки', pron:"[riː'saɪkl kænz]"},
-  {word:'collect rubbish', ru:'собирать мусор', pron:"[kə'lekt 'rʌbɪʃ]"},
-  {word:'build nesting boxes', ru:'строить скворечники', pron:"[bɪld 'nɛstɪŋ 'bɒksɪz]"},
-  {word:'teach the cycle of life', ru:'учить циклу жизни', pron:"[tiːʧ ðə 'saɪkl əv laɪf]"},
-  {word:'clean out a pond', ru:'вычистить пруд', pron:"[kliːn aʊt ə pɒnd]"},
-  {word:'read a book about ecology', ru:'читать об экологии', pron:"[riːd... ɪ'kɒləʤi]"},
-  {word:'a ladder', ru:'лестница (стремянка)', pron:"[ə 'lædə]"},
-  {word:'a hammer and nails', ru:'молоток и гвозди', pron:"[ə 'hæmər ənd neɪlz]"},
-  {word:'a spade', ru:'лопата', pron:"[ə speɪd]"},
-  {word:'a watering can', ru:'лейка', pron:"[ə 'wɔːtərɪŋ kæn]"},
-  {word:'a rake', ru:'грабли', pron:"[ə reɪk]"},
-  {word:'a net', ru:'сачок, сеть', pron:"[ə nɛt]"},
-  {word:'gardening gloves', ru:'садовые перчатки', pron:"['gɑːdnɪŋ glʌvz]"},
-  {word:'a plastic bag', ru:'пластиковый пакет', pron:"[ə 'plæstɪk bæg]"},
-  {word:'leave/left', ru:'покидать/оставлять', pron:"[liːv/lɛft]"},
-  {word:'woods', ru:'лес', pron:"[wʊdz]"},
-  {word:'tropical rainforest', ru:'тропический лес', pron:"['trɒpɪkəl 'reɪnfɒrɪst]"},
-  {word:'desert', ru:'пустыня', pron:"['dɛzət]"},
-  {word:'polar regions', ru:'полярные регионы', pron:"['pəʊlə 'riːʤənz]"},
-  {word:'wetlands', ru:'болота', pron:"['wɛtləndz]"},
-  {word:'savannah (grassland)', ru:'саванна', pron:"[sə'vænə]"}
+  {word:'a power station', ru:'электростанция', pron:"[ə 'paʊə ˌsteɪʃn]", emoji:"🏭⚡"},
+  {word:'factory', ru:'завод', pron:"['fæktəri]", emoji:"🏭💨"},
+  {word:'toxic fumes', ru:'токсичные выбросы', pron:"['tɒksɪk 'fjuːmz]", emoji:"💨☠️"},
+  {word:'factory waste', ru:'промышленные отходы', pron:"['fæktəri weɪst]", emoji:"🛢️☢️"},
+  {word:'acid rain', ru:'кислотный дождь', pron:"['æsɪd reɪn]", emoji:"🌧️🔥"},
+  {word:'polluted clouds', ru:'загрязненные облака', pron:"[pə'luːtɪd klaʊdz]", emoji:"☁️🏭"},
+  {word:'loss of natural habitats', ru:'потеря мест обитания', pron:"[lɒs əv 'næʧrəl 'hæbɪtæts]", emoji:"🪓🌳"},
+  {word:'air, water and soil pollution', ru:'загрязнение воздуха, воды, почвы', pron:"[pəˈluːʃn]", emoji:"🌍🚮"},
+  {word:'fish and plants species dying', ru:'гибель видов рыб и растений', pron:"['spiːʃiːz ˈdaɪɪŋ]", emoji:"🐟🥀"},
+  {word:'burn', ru:'сжигать', pron:"[bɜːn]", emoji:"🔥🗑️"},
+  {word:'emit', ru:'выделять (газы)', pron:"[ɪˈmɪt]", emoji:"🏭💨"},
+  {word:'gathered', ru:'собранный', pron:"['gæðəd]", emoji:"🧺🤝"},
+  {word:'oxygen', ru:'кислород', pron:"['ɒksɪdʒən]", emoji:"🍃🫧"},
+  {word:'atmosphere', ru:'атмосфера', pron:"['ætməsfɪə]", emoji:"🌐🌤️"},
+  {word:'land (verb)', ru:'приземляться', pron:"[lænd]", emoji:"🛬🌍"},
+  {word:'sleet', ru:'мокрый снег', pron:"[sliːt]", emoji:"🌨️💧"},
+  {word:'wipe out', ru:'уничтожить', pron:"[waɪp aʊt]", emoji:"💥🚫"},
+  {word:'poison (verb)', ru:'отравлять', pron:"['pɔɪzn]", emoji:"🧪💀"},
+  {word:'reduce', ru:'уменьшать', pron:"[rɪ'djuːs]", emoji:"📉♻️"},
+  {word:'harmful', ru:'вредный', pron:"['hɑːmfʊl]", emoji:"⚠️❌"},
+  {word:'solar power', ru:'солнечная энергия', pron:"['səʊlə 'paʊə]", emoji:"☀️🔋"},
+  {word:'heat', ru:'жара, нагревать', pron:"[hiːt]", emoji:"🌡️🔥"},
+  {word:'plant flowers', ru:'сажать цветы', pron:"[plɑːnt 'flaʊəz]", emoji:"🌱🌷"},
+  {word:'recycle cans', ru:'перерабатывать банки', pron:"[riː'saɪkl kænz]", emoji:"♻️🥫"},
+  {word:'collect rubbish', ru:'собирать мусор', pron:"[kə'lekt 'rʌbɪʃ]", emoji:"🗑️🧤"},
+  {word:'build nesting boxes', ru:'строить скворечники', pron:"[bɪld 'nɛstɪŋ 'bɒksɪz]", emoji:"🔨🐦"},
+  {word:'teach the cycle of life', ru:'учить циклу жизни', pron:"[tiːʧ ðə 'saɪkl əv laɪf]", emoji:"👨‍🏫🔄"},
+  {word:'clean out a pond', ru:'вычистить пруд', pron:"[kliːn aʊt ə pɒnd]", emoji:"🦆🧹"},
+  {word:'read a book about ecology', ru:'читать об экологии', pron:"[riːd... ɪ'kɒləʤi]", emoji:"📖🌿"},
+  {word:'a ladder', ru:'лестница (стремянка)', pron:"[ə 'lædə]", emoji:"🪜🪜"},
+  {word:'a hammer and nails', ru:'молоток и гвозди', pron:"[ə 'hæmər ənd neɪlz]", emoji:"🔨📌"},
+  {word:'a spade', ru:'лопата', pron:"[ə speɪd]", emoji:"⛏️🌱"},
+  {word:'a watering can', ru:'лейка', pron:"[ə 'wɔːtərɪŋ kæn]", emoji:"🚿🪴"},
+  {word:'a rake', ru:'грабли', pron:"[ə reɪk]", emoji:"🍂🧹"},
+  {word:'a net', ru:'сачок, сеть', pron:"[ə nɛt]", emoji:"🦋🥅"},
+  {word:'gardening gloves', ru:'садовые перчатки', pron:"['gɑːdnɪŋ glʌvz]", emoji:"🧤🪴"},
+  {word:'a plastic bag', ru:'пластиковый пакет', pron:"[ə 'plæstɪk bæg]", emoji:"🛍️🐢"},
+  {word:'leave/left', ru:'покидать/оставлять', pron:"[liːv/lɛft]", emoji:"🚶‍♂️🚪"},
+  {word:'woods', ru:'лес', pron:"[wʊdz]", emoji:"🌲🌳"},
+  {word:'tropical rainforest', ru:'тропический лес', pron:"['trɒpɪkəl 'reɪnfɒrɪst]", emoji:"🌴🐒"},
+  {word:'desert', ru:'пустыня', pron:"['dɛzət]", emoji:"🐪🏜️"},
+  {word:'polar regions', ru:'полярные регионы', pron:"['pəʊlə 'riːʤənz]", emoji:"🧊🐧"},
+  {word:'wetlands', ru:'болота', pron:"['wɛtləndz]", emoji:"🐸🌾"},
+  {word:'savannah (grassland)', ru:'саванна', pron:"[sə'vænə]", emoji:"🦁🌾"}
 ];
 
-/* Render Flashcards with AI Images */
 function renderCards() {
   const container = document.getElementById('flashcards');
   let html = '';
   vocab.forEach((v) => {
-    // Pollinations AI API directly generates images based on the prompt in the URL!
-    const imgPrompt = encodeURIComponent(`flat vector illustration of ${v.word}, ecology theme, nature, clean style`);
-    const imgUrl = `https://image.pollinations.ai/prompt/${imgPrompt}?width=300&height=200&nologo=true`;
-    
     html += `
       <div class="flip-card" onclick="this.classList.toggle('flipped')">
         <div class="flip-inner">
@@ -418,7 +299,7 @@ function renderCards() {
             <button class="sound-btn" onclick="event.stopPropagation(); playSound('${v.word.replace(/'/g, "\\'")}')">🔊</button>
           </div>
           <div class="flip-back">
-            <img src="${imgUrl}" alt="${v.word}" class="ai-image" loading="lazy" onerror="this.src='https://placehold.co/300x200/e0f2e9/059669?text=${v.word}'">
+            <div class="ill-box">${v.emoji}</div>
             <div class="vocab-trans">${v.ru}</div>
             <div class="vocab-pron">${v.pron}</div>
           </div>
@@ -430,20 +311,16 @@ function renderCards() {
 }
 renderCards();
 
-/* Text to Speech */
 function playSound(text) {
   if (!window.speechSynthesis) return;
   window.speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = "en-GB";
   utterance.rate = 0.9;
-  const voices = window.speechSynthesis.getVoices();
-  const british = voices.find(v => v.lang.includes('en-GB'));
-  if (british) utterance.voice = british;
   window.speechSynthesis.speak(utterance);
 }
 
-/* ================= LOGIC FOR TASKS ================= */
+/* ================= CHECKING LOGIC ================= */
 const cleanStr = str => str.toLowerCase().replace(/[.,?!]/g, "").replace(/\s+/g, " ").trim();
 
 function checkInput(inputId, correctAnswers) {
@@ -451,21 +328,22 @@ function checkInput(inputId, correctAnswers) {
   const resultEl = document.getElementById(inputId + "-res");
   const userVal = cleanStr(inputEl.value);
   
-  const isCorrect = correctAnswers.some(ans => userVal === cleanStr(ans));
+  if(!userVal) return;
 
+  const isCorrect = correctAnswers.some(ans => userVal === cleanStr(ans));
   resultEl.classList.remove("f-correct", "f-wrong");
   
   if (isCorrect) {
     inputEl.style.borderColor = "var(--success)";
     resultEl.classList.add("show", "f-correct");
-    resultEl.innerHTML = "✨ Brilliant! Correct.";
+    resultEl.innerHTML = "✨ Excellent! Correct.";
   } else {
     inputEl.style.borderColor = "var(--danger)";
     inputEl.classList.remove("shake");
     void inputEl.offsetWidth; 
     inputEl.classList.add("shake");
     resultEl.classList.add("show", "f-wrong");
-    resultEl.innerHTML = `❌ Incorrect. Try again! (Hint: ${correctAnswers[0]})`;
+    resultEl.innerHTML = `❌ Incorrect. Try again!`;
   }
 }
 
@@ -499,41 +377,133 @@ function checkMCQ(btn, isCorrect, explanation) {
   }
 }
 
-/* ================= FINAL TEST GENERATION ================= */
+/* ================= RENDER CONTEXT TASKS ================= */
+const contextData = [
+  {q: "Factories usually _____ thick, black _____ into the air.", ans: ["emit toxic fumes", "emit, toxic fumes", "emit fumes"]},
+  {q: "Pollution leads to the _____ of _____ _____ for wild animals.", ans: ["loss of natural habitats", "loss natural habitats"]},
+  {q: "Don't throw them away! You should _____ _____ and glass bottles.", ans: ["recycle cans"]},
+  {q: "My grandfather decided to _____ _____ _____ _____ in his garden to help the fish.", ans: ["clean out a pond"]},
+  {q: "We use a _____ to dig the earth and a _____ _____ to give water to plants.", ans: ["spade watering can", "spade, watering can"]},
+  {q: "In spring, children _____ _____ _____ on the trees for birds.", ans: ["build nesting boxes"]},
+  {q: "A large dry area of land covered with sand is called a _____.", ans: ["desert"]},
+  {q: "Trees give us _____ which is essential for breathing.", ans: ["oxygen"]},
+  {q: "Instead of using gas, many houses now use _____ _____ to get electricity from the sun.", ans: ["solar power"]},
+  {q: "It's illegal to dump _____ _____ into the river because it poisons the water.", ans: ["factory waste"]}
+];
+
+function renderContext() {
+  const cont = document.getElementById('context-tasks');
+  let h = '';
+  contextData.forEach((task, i) => {
+    h += `
+      <div class="question-wrap">
+        <div class="q-text">${i+1}. ${task.q}</div>
+        <div class="input-flex">
+          <input type="text" id="ctx${i}" placeholder="...">
+          <button class="btn-check" onclick="checkInput('ctx${i}', ${JSON.stringify(task.ans)})">Check</button>
+        </div>
+        <div class="feedback" id="ctx${i}-res"></div>
+      </div>
+    `;
+  });
+  cont.innerHTML = h;
+}
+renderContext();
+
+/* ================= RENDER GRAMMAR TASKS ================= */
+const grPPC = [
+  {t: "input", q: "<b>(+)</b> I _______ (plant) flowers for 2 hours.", ans: ["have been planting", "'ve been planting"]},
+  {t: "mcq", q: "<b>(+)</b> She _______ the pond since morning.", opt: ["has cleaned", "has been cleaning", "is cleaning"], corr: 1, expl: "Action started in the past and continues now."},
+  {t: "input", q: "<b>(-)</b> They _______ (not/collect) rubbish recently. (Use short form)", ans: ["haven't been collecting"]},
+  {t: "input", q: "<b>(-)</b> He _______ (not/emit) fumes.", ans: ["hasn't been emitting", "has not been emitting"]},
+  {t: "input", q: "<b>(?)</b> _______ you _______ (work) in the garden all day?", ans: ["have been working"]},
+  {t: "input", q: "<b>(?)</b> _______ she _______ (read) a book about ecology?", ans: ["has been reading"]}
+];
+
+const grPhrasal = [
+  {t: "mcq", q: "I couldn't _______ what the teacher wrote on the board.", opt: ["make up", "make out", "make up with"], corr: 1, expl: "make out = understand with difficulty."},
+  {t: "input", q: "She didn't want to go, so she _______ an excuse. (Past Simple)", ans: ["made up"]},
+  {t: "input", q: "They argued yesterday, but today they have _______ each other.", ans: ["made up with", "made up"]},
+  {t: "mcq", q: "Don't believe him, he likes to _______ stories.", opt: ["make out", "make up with", "make up"], corr: 2, expl: "make up = invent."}
+];
+
+const grModals = [
+  {t: "mcq", q: "You _______ burn rubbish! It's very harmful.", opt: ["don't have to", "mustn't", "haven't to"], corr: 1, expl: "mustn't = it is forbidden/harmful."},
+  {t: "mcq", q: "It's a holiday today, so we _______ go to school.", opt: ["don't have to", "mustn't", "doesn't have to"], corr: 0, expl: "don't have to = lack of necessity."},
+  {t: "input", q: "She has to collect the rubbish, _______? (Tag)", ans: ["doesn't she"]},
+  {t: "input", q: "They don't have to wear gloves, _______? (Tag)", ans: ["do they"]}
+];
+
+function renderGrammar(arr, containerId) {
+  const cont = document.getElementById(containerId);
+  let h = '';
+  arr.forEach((item, i) => {
+    h += `<div class="question-wrap"><div class="q-text">${i+1}. ${item.q}</div>`;
+    if(item.t === "input") {
+      h += `
+        <div class="input-flex">
+          <input type="text" id="${containerId}-q${i}" placeholder="...">
+          <button class="btn-check" onclick="checkInput('${containerId}-q${i}', ${JSON.stringify(item.ans)})">Check</button>
+        </div>
+        <div class="feedback" id="${containerId}-q${i}-res"></div>
+      `;
+    } else {
+      h += `<div class="mcq-grid">`;
+      item.opt.forEach((o, oIdx) => {
+        const isCorr = (oIdx === item.corr);
+        h += `<button class="mcq-btn" onclick="checkMCQ(this, ${isCorr}, '${item.expl.replace(/'/g, "\\'")}')">${o}</button>`;
+      });
+      h += `</div>`;
+    }
+    h += `</div>`;
+  });
+  cont.innerHTML = h;
+}
+renderGrammar(grPPC, 'grammar-ppc-tasks');
+renderGrammar(grPhrasal, 'grammar-phrasal-tasks');
+renderGrammar(grModals, 'grammar-modal-tasks');
+
+/* ================= FINAL TEST (15 Questions) ================= */
 const testData = [
-  { q: "You use this tool to dig the ground:", type: "input", ans: ["a spade", "spade"] },
-  { q: "We must _______ to save resources.", type: "mcq", options: ["burn rubbish", "recycle cans", "emit fumes"], correct: 1 },
-  { q: "The opposite of 'harmful' is... (not in list, but logical)", type: "mcq", options: ["toxic", "polluted", "safe/helpful"], correct: 2 },
-  { q: "She _______ (plant) flowers since 10 o'clock.", type: "input", ans: ["has been planting"] },
-  { q: "You ________ go there, it's not necessary.", type: "mcq", options: ["mustn't", "don't have to", "haven't to"], correct: 1 },
-  { q: "They made _______ a story about a ghost.", type: "input", ans: ["up"] },
-  { q: "A place with lots of sand and no water is a _______.", type: "input", ans: ["desert"] },
-  { q: "He works at a power station, _______?", type: "input", ans: ["doesn't he", "does not he"] }
+  { t: "mcq", q: "Which tool has 'nails' with it?", opt: ["a spade", "a rake", "a hammer"], corr: 2 },
+  { t: "input", q: "Acid rain can _____ _____ entire woods. (destroy)", ans: ["wipe out"] },
+  { t: "mcq", q: "A power station can emit...", opt: ["oxygen", "toxic fumes", "sleet"], corr: 1 },
+  { t: "input", q: "Write the negative PPC: We _______ (not/recycle) cans.", ans: ["haven't been recycling", "have not been recycling"] },
+  { t: "mcq", q: "I can't _______ what the sign says.", opt: ["make up", "make out", "make up with"], corr: 1 },
+  { t: "input", q: "Question Tag: You don't have to go, _______?", ans: ["do you"] },
+  { t: "mcq", q: "Instead of burning rubbish, we should...", opt: ["recycle cans", "pollute clouds", "poison land"], corr: 0 },
+  { t: "input", q: "What falls from polluted clouds? (Two words)", ans: ["acid rain"] },
+  { t: "mcq", q: "They argued but later they _______ each other.", opt: ["made up", "made up with", "made out"], corr: 1 },
+  { t: "input", q: "PPC Question: _______ she _______ (plant) flowers?", ans: ["has been planting"] },
+  { t: "mcq", q: "Which of these is NOT an ecosystem?", opt: ["tropical rainforest", "factory waste", "wetlands", "savannah"], corr: 1 },
+  { t: "input", q: "To protect your hands in the garden, wear _____ _____.", ans: ["gardening gloves"] },
+  { t: "mcq", q: "You _______ buy a plastic bag, you can bring a paper one. (Not necessary)", opt: ["mustn't", "don't have to", "haven't to"], corr: 1 },
+  { t: "input", q: "Question Tag: She has to clean a pond, _______?", ans: ["doesn't she"] },
+  { t: "input", q: "A mix of rain and snow is called _______.", ans: ["sleet"] }
 ];
 
 function renderTest() {
-  const container = document.getElementById('test-questions');
-  let html = '';
-  testData.forEach((item, index) => {
-    html += `<div class="question-wrap" style="background: #f8fafc; padding: 15px; border-radius: 12px; margin-bottom: 15px;">`;
-    html += `<div class="q-text">${index + 1}. ${item.q}</div>`;
+  const cont = document.getElementById('test-questions');
+  let h = '';
+  testData.forEach((item, i) => {
+    h += `<div class="question-wrap" style="background: #ffffff; padding: 20px; border-radius: 16px; margin-bottom: 20px; border: 1px solid #e2e8f0;">`;
+    h += `<div class="q-text" style="color: var(--text-dark);">${i + 1}. ${item.q}</div>`;
     
-    if (item.type === "input") {
-      html += `<input type="text" id="test-q${index}" class="test-input" placeholder="Type answer...">`;
-    } else if (item.type === "mcq") {
-      html += `<div class="mcq-grid" id="test-q${index}">`;
-      item.options.forEach((opt, optIdx) => {
-        html += `<button class="mcq-btn test-mcq" data-q="${index}" data-correct="${optIdx === item.correct}" onclick="selectTestMCQ(this)">${opt}</button>`;
+    if (item.t === "input") {
+      h += `<input type="text" id="test-q${i}" class="test-input" placeholder="...">`;
+    } else if (item.t === "mcq") {
+      h += `<div class="mcq-grid" id="test-q${i}">`;
+      item.opt.forEach((opt, optIdx) => {
+        h += `<button class="mcq-btn test-mcq" data-correct="${optIdx === item.corr}" onclick="selectTestMCQ(this)">${opt}</button>`;
       });
-      html += `</div>`;
+      h += `</div>`;
     }
-    html += `</div>`;
+    h += `</div>`;
   });
-  container.innerHTML = html;
+  cont.innerHTML = h;
 }
 renderTest();
 
-// Handle Test MCQ selection
 function selectTestMCQ(btn) {
   const parent = btn.parentNode;
   Array.from(parent.children).forEach(b => {
@@ -546,35 +516,37 @@ function selectTestMCQ(btn) {
   btn.classList.add('selected');
 }
 
-// Calculate Score
 function calculateScore() {
   let score = 0;
-  testData.forEach((item, index) => {
-    if (item.type === "input") {
-      const val = cleanStr(document.getElementById(`test-q${index}`).value);
+  testData.forEach((item, i) => {
+    if (item.t === "input") {
+      const val = cleanStr(document.getElementById(`test-q${i}`).value);
       if (item.ans.some(a => cleanStr(a) === val)) score++;
-    } else if (item.type === "mcq") {
-      const parent = document.getElementById(`test-q${index}`);
+    } else if (item.t === "mcq") {
+      const parent = document.getElementById(`test-q${i}`);
       const selected = parent.querySelector('.selected');
       if (selected && selected.getAttribute('data-correct') === "true") score++;
     }
   });
 
-  const percent = Math.round((score / testData.length) * 100);
+  const total = testData.length;
+  const percent = Math.round((score / total) * 100);
   
   document.getElementById('test-container').classList.add('hidden');
   const resScreen = document.getElementById('test-results');
   resScreen.classList.remove('hidden');
   resScreen.classList.add('fade-up');
   
-  document.getElementById('score-text').innerText = `${score}/${testData.length}`;
+  document.getElementById('score-text').innerText = `${score}/${total}`;
   const circle = document.getElementById('score-circle');
   circle.style.background = `conic-gradient(var(--primary) ${percent}%, #e5e7eb ${percent}%)`;
   
   const msg = document.getElementById('score-msg');
-  if (percent === 100) msg.innerText = "🏆 Perfect Score! Amazing!";
-  else if (percent >= 70) msg.innerText = "⭐ Great Job! Well done.";
-  else msg.innerText = "📚 Keep practicing. You can do better!";
+  const desc = document.getElementById('score-desc');
+  if (percent === 100) { msg.innerText = "🏆 Perfect Score!"; desc.innerText = "Absolutely flawless! You know Module 8 perfectly."; }
+  else if (percent >= 80) { msg.innerText = "⭐ Great Job!"; desc.innerText = "You have a very strong understanding of the vocabulary and grammar."; }
+  else if (percent >= 50) { msg.innerText = "👍 Good Effort!"; desc.innerText = "You know the basics, but reviewing the flashcards again will help."; }
+  else { msg.innerText = "📚 Keep Practicing!"; desc.innerText = "Don't give up! Review the grammar rules and vocabulary context tasks."; }
 }
 </script>
 </body>
