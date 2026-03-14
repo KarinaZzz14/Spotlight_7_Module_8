@@ -5,34 +5,25 @@
   <title>Eco Revision – Spotlight 7 Module 8</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Подключаем библиотеки для создания ZIP архива прямо в браузере -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
   <style>
     :root {
-      --primary: #059669;
-      --primary-hover: #047857;
-      --secondary: #10b981;
-      --text-dark: #1e293b;
-      --text-light: #475569;
-      --danger: #ef4444;
-      --success: #10b981;
-      --glass-bg: rgba(255, 255, 255, 0.85);
-      --glass-border: rgba(255, 255, 255, 0.6);
-      --shadow-soft: 0 10px 40px rgba(5, 150, 105, 0.08);
-      --shadow-hover: 0 20px 50px rgba(5, 150, 105, 0.15);
-      --radius: 24px;
-      --font: 'Poppins', sans-serif;
+      --primary: #059669; --primary-hover: #047857; --secondary: #10b981;
+      --text-dark: #1e293b; --text-light: #475569; --danger: #ef4444; --success: #10b981;
+      --glass-bg: rgba(255, 255, 255, 0.85); --glass-border: rgba(255, 255, 255, 0.6);
+      --shadow-soft: 0 10px 40px rgba(5, 150, 105, 0.08); --shadow-hover: 0 20px 50px rgba(5, 150, 105, 0.15);
+      --radius: 24px; --font: 'Poppins', sans-serif;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
     body { 
-      font-family: var(--font); 
-      color: var(--text-dark); 
-      min-height: 100vh; 
-      overflow-x: hidden; 
-      scroll-behavior: smooth;
-      background: linear-gradient(-45deg, #dcfce7, #f0fdf4, #ccfbf1, #bbf7d0);
-      background-size: 400% 400%;
-      animation: gradientBG 15s ease infinite;
+      font-family: var(--font); color: var(--text-dark); min-height: 100vh; overflow-x: hidden; scroll-behavior: smooth;
+      background: linear-gradient(-45deg, #dcfce7, #f0fdf4, #ccfbf1, #bbf7d0); background-size: 400% 400%; animation: gradientBG 15s ease infinite;
     }
 
     @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
@@ -53,7 +44,7 @@
     nav a.active { box-shadow: 0 8px 20px rgba(5, 150, 105, 0.3); }
 
     .container { max-width: 1200px; margin: 0 auto; padding: 50px 20px; }
-    .section-title { font-size: 2.5rem; color: var(--primary); margin-bottom: 30px; display: inline-block; position: relative; font-weight: 800; }
+    .section-title { font-size: 2.5rem; color: var(--primary); margin-bottom: 10px; display: inline-block; position: relative; font-weight: 800; }
     .section-title::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 60%; height: 6px; background: var(--secondary); border-radius: 10px; }
     .glass-card { background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: var(--radius); padding: 40px; box-shadow: var(--shadow-soft); margin-bottom: 40px; transition: transform 0.3s; }
     .glass-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
@@ -93,7 +84,8 @@
     input[type="text"]:focus { border-color: var(--secondary); box-shadow: 0 0 0 5px rgba(16, 185, 129, 0.15); outline: none; transform: translateY(-2px); }
     
     .btn-check { background: var(--primary); color: white; border: none; padding: 16px 32px; border-radius: 16px; font-weight: 700; font-size: 1.1rem; cursor: pointer; transition: all 0.3s; box-shadow: 0 8px 20px rgba(5, 150, 105, 0.25); }
-    .btn-check:hover { background: var(--primary-hover); transform: translateY(-4px); box-shadow: 0 12px 25px rgba(5, 150, 105, 0.35); }
+    .btn-check:hover:not(:disabled) { background: var(--primary-hover); transform: translateY(-4px); box-shadow: 0 12px 25px rgba(5, 150, 105, 0.35); }
+    .btn-check:disabled { background: #94a3b8; cursor: not-allowed; box-shadow: none; transform: none; }
 
     .mcq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
     .mcq-btn { padding: 16px; background: white; border: 2px solid #cbd5e1; border-radius: 16px; font-family: var(--font); font-weight: 600; font-size: 1.1rem; color: var(--text-dark); cursor: pointer; transition: all 0.3s; position: relative; overflow: hidden; }
@@ -112,6 +104,8 @@
     .score-text { position: relative; z-index: 1; }
     .hidden { display: none !important; }
 
+    .header-actions { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 30px; gap: 15px; }
+
     @media (max-width: 768px) {
       nav a { padding: 10px 16px; font-size: 0.95rem; }
       .section-title { font-size: 2rem; }
@@ -122,6 +116,7 @@
       .flip-front strong { font-size: 1.15rem; }
       .input-flex { flex-direction: column; align-items: stretch; }
       .btn-check { width: 100%; }
+      .header-actions { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
@@ -139,10 +134,19 @@
 <div class="container">
 
   <section id="page-0" class="fade-up">
-    <h2 class="section-title">Vocabulary Flashcards</h2>
-    <p style="color: var(--text-light); margin-bottom: 30px; font-size: 1.15rem; font-weight: 500;">
-      All 43 Module 8 words. Click 🔊 to listen. Click the card to flip and see the translation & image.
-    </p>
+    <div class="header-actions">
+      <div>
+        <h2 class="section-title">Vocabulary Flashcards</h2>
+        <p style="color: var(--text-light); font-size: 1.15rem; font-weight: 500;">
+          All 43 Module 8 words. Click 🔊 to listen. Click the card to flip.
+        </p>
+      </div>
+      <!-- КНОПКА СКАЧИВАНИЯ АРХИВА -->
+      <button id="download-zip-btn" class="btn-check" style="background: var(--text-dark); color: white;" onclick="downloadAllImages()">
+        📥 Скачать все картинки (.zip)
+      </button>
+    </div>
+    
     <div class="vocab-grid" id="flashcards"></div>
   </section>
 
@@ -202,55 +206,97 @@ function showPage(n) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-/* МАГИЯ ЗДЕСЬ: Специальные ссылки (image.pollinations.ai) генерируют крутые картинки по словам */
 const genUrl = (prompt) => `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=400&height=300&nologo=true`;
 
 const vocab = [
-  {word:'a power station', ru:'электростанция', pron:"[ə 'paʊə ˌsteɪʃn]", img: genUrl('industrial power station electricity plant photo'), fb:"🏭"},
-  {word:'factory', ru:'завод', pron:"['fæktəri]", img: genUrl('large industrial factory exterior photo'), fb:"🏭"},
-  {word:'toxic fumes', ru:'токсичные выбросы', pron:"['tɒksɪk 'fjuːmz]", img: genUrl('thick dark toxic smoke coming out of chimney'), fb:"💨"},
-  {word:'factory waste', ru:'промышленные отходы', pron:"['fæktəri weɪst]", img: genUrl('toxic green factory waste barrels'), fb:"🛢️"},
-  {word:'acid rain', ru:'кислотный дождь', pron:"['æsɪd reɪn]", img: genUrl('acid rain hitting dead plants dark photography'), fb:"🌧️"},
-  {word:'polluted clouds', ru:'загрязненные облака', pron:"[pə'luːtɪd klaʊdz]", img: genUrl('dark polluted smog clouds sky'), fb:"☁️"},
-  {word:'loss of natural habitats', ru:'потеря мест обитания', pron:"[lɒs əv 'næʧrəl 'hæbɪtæts]", img: genUrl('deforestation cut down trees destroyed forest'), fb:"🪓"},
-  {word:'air, water and soil pollution', ru:'загрязнение', pron:"[pəˈluːʃn]", img: genUrl('plastic pollution in ocean water realistic'), fb:"🌍"},
-  {word:'fish and plants species dying', ru:'гибель видов', pron:"['spiːʃiːz ˈdaɪɪŋ]", img: genUrl('dead fish near polluted water shore'), fb:"🥀"},
-  {word:'burn', ru:'сжигать', pron:"[bɜːn]", img: genUrl('burning pile of garbage fire'), fb:"🔥"},
-  {word:'emit', ru:'выделять (газы)', pron:"[ɪˈmɪt]", img: genUrl('factory emitting gas into the atmosphere'), fb:"🏭"},
-  {word:'gathered', ru:'собранный', pron:"['gæðəd]", img: genUrl('people gathered together volunteers cleaning'), fb:"🧺"},
-  {word:'oxygen', ru:'кислород', pron:"['ɒksɪdʒən]", img: genUrl('fresh green tree breathing oxygen bubbles'), fb:"🍃"},
-  {word:'atmosphere', ru:'атмосфера', pron:"['ætməsfɪə]", img: genUrl('earth atmosphere from space glowing edge'), fb:"🌐"},
-  {word:'land (verb)', ru:'приземляться', pron:"[lænd]", img: genUrl('airplane landing on a runway'), fb:"🛬"},
-  {word:'sleet', ru:'мокрый снег', pron:"[sliːt]", img: genUrl('cold freezing sleet rain snow weather'), fb:"🌨️"},
-  {word:'wipe out', ru:'уничтожить', pron:"[waɪp aʊt]", img: genUrl('forest destroyed by fire wiped out'), fb:"💥"},
-  {word:'poison (verb)', ru:'отравлять', pron:"['pɔɪzn]", img: genUrl('toxic green poison liquid drop'), fb:"🧪"},
-  {word:'reduce', ru:'уменьшать', pron:"[rɪ'djuːs]", img: genUrl('recycle symbol with a downward arrow green'), fb:"📉"},
-  {word:'harmful', ru:'вредный', pron:"['hɑːmfʊl]", img: genUrl('danger warning sign biohazard harmful'), fb:"⚠️"},
-  {word:'solar power', ru:'солнечная энергия', pron:"['səʊlə 'paʊə]", img: genUrl('solar panels reflecting sun green energy'), fb:"☀️"},
-  {word:'heat', ru:'жара, нагревать', pron:"[hiːt]", img: genUrl('intense summer sun heatwave thermometer'), fb:"🌡️"},
-  {word:'plant flowers', ru:'сажать цветы', pron:"[plɑːnt 'flaʊəz]", img: genUrl('hands planting small flower in soil'), fb:"🌷"},
-  {word:'recycle cans', ru:'перерабатывать банки', pron:"[riː'saɪkl kænz]", img: genUrl('aluminum cans in a green recycle bin'), fb:"♻️"},
-  {word:'collect rubbish', ru:'собирать мусор', pron:"[kə'lekt 'rʌbɪʃ]", img: genUrl('volunteers collecting plastic rubbish bags'), fb:"🗑️"},
-  {word:'build nesting boxes', ru:'строить скворечники', pron:"[bɪld 'nɛstɪŋ 'bɒksɪz]", img: genUrl('wooden bird nesting box on a tree'), fb:"🐦"},
-  {word:'teach the cycle of life', ru:'учить циклу жизни', pron:"[tiːʧ ðə 'saɪkl əv laɪf]", img: genUrl('teacher showing plant growing cycle nature'), fb:"🔄"},
-  {word:'clean out a pond', ru:'вычистить пруд', pron:"[kliːn aʊt ə pɒnd]", img: genUrl('beautiful clean clear water garden pond'), fb:"🦆"},
-  {word:'read a book about ecology', ru:'читать об экологии', pron:"[riːd... ɪ'kɒləʤi]", img: genUrl('open book with a small glowing tree growing from pages'), fb:"📖"},
-  {word:'a ladder', ru:'лестница', pron:"[ə 'lædə]", img: genUrl('tall wooden ladder leaning against a tree'), fb:"🪜"},
-  {word:'a hammer and nails', ru:'молоток и гвозди', pron:"[ə 'hæmər ənd neɪlz]", img: genUrl('hammer and metal nails on wooden table'), fb:"🔨"},
-  {word:'a spade', ru:'лопата', pron:"[ə speɪd]", img: genUrl('garden spade shovel stuck in soil'), fb:"⛏️"},
-  {word:'a watering can', ru:'лейка', pron:"[ə 'wɔːtərɪŋ kæn]", img: genUrl('green garden watering can pouring water'), fb:"🚿"},
-  {word:'a rake', ru:'грабли', pron:"[ə reɪk]", img: genUrl('garden rake pulling autumn leaves'), fb:"🍂"},
-  {word:'a net', ru:'сачок, сеть', pron:"[ə nɛt]", img: genUrl('butterfly catching net summer garden'), fb:"🦋"},
-  {word:'gardening gloves', ru:'садовые перчатки', pron:"['gɑːdnɪŋ glʌvz]", img: genUrl('dirty green gardening gloves near a plant'), fb:"🧤"},
-  {word:'a plastic bag', ru:'пластиковый пакет', pron:"[ə 'plæstɪk bæg]", img: genUrl('clear plastic shopping bag flying in wind'), fb:"🛍️"},
-  {word:'leave/left', ru:'покидать/оставлять', pron:"[liːv/lɛft]", img: genUrl('person walking away leaving nature trail'), fb:"🚪"},
-  {word:'woods', ru:'лес', pron:"[wʊdz]", img: genUrl('beautiful dense green pine woods forest'), fb:"🌲"},
-  {word:'tropical rainforest', ru:'тропический лес', pron:"['trɒpɪkəl 'reɪnfɒrɪst]", img: genUrl('lush green humid tropical rainforest jungle'), fb:"🌴"},
-  {word:'desert', ru:'пустыня', pron:"['dɛzət]", img: genUrl('hot sandy sahara desert dunes'), fb:"🐪"},
-  {word:'polar regions', ru:'полярные регионы', pron:"['pəʊlə 'riːʤənz]", img: genUrl('cold icy polar region with iceberg and snow'), fb:"🧊"},
-  {word:'wetlands', ru:'болота', pron:"['wɛtləndz]", img: genUrl('marshy wetlands swamp with tall grass'), fb:"🐸"},
-  {word:'savannah', ru:'саванна', pron:"[sə'vænə]", img: genUrl('african savannah grassland with acacia tree'), fb:"🦁"}
+  {word:'a power station', ru:'электростанция', pron:"[ə 'paʊə ˌsteɪʃn]", img: genUrl('industrial power station electricity plant photo')},
+  {word:'factory', ru:'завод', pron:"['fæktəri]", img: genUrl('large industrial factory exterior photo')},
+  {word:'toxic fumes', ru:'токсичные выбросы', pron:"['tɒksɪk 'fjuːmz]", img: genUrl('thick dark toxic smoke coming out of chimney')},
+  {word:'factory waste', ru:'промышленные отходы', pron:"['fæktəri weɪst]", img: genUrl('toxic green factory waste barrels')},
+  {word:'acid rain', ru:'кислотный дождь', pron:"['æsɪd reɪn]", img: genUrl('acid rain hitting dead plants dark photography')},
+  {word:'polluted clouds', ru:'загрязненные облака', pron:"[pə'luːtɪd klaʊdz]", img: genUrl('dark polluted smog clouds sky')},
+  {word:'loss of natural habitats', ru:'потеря мест обитания', pron:"[lɒs əv 'næʧrəl 'hæbɪtæts]", img: genUrl('deforestation cut down trees destroyed forest')},
+  {word:'air, water and soil pollution', ru:'загрязнение', pron:"[pəˈluːʃn]", img: genUrl('plastic pollution in ocean water realistic')},
+  {word:'fish and plants species dying', ru:'гибель видов', pron:"['spiːʃiːz ˈdaɪɪŋ]", img: genUrl('dead fish near polluted water shore')},
+  {word:'burn', ru:'сжигать', pron:"[bɜːn]", img: genUrl('burning pile of garbage fire')},
+  {word:'emit', ru:'выделять (газы)', pron:"[ɪˈmɪt]", img: genUrl('factory emitting gas into the atmosphere')},
+  {word:'gathered', ru:'собранный', pron:"['gæðəd]", img: genUrl('people gathered together volunteers cleaning')},
+  {word:'oxygen', ru:'кислород', pron:"['ɒksɪdʒən]", img: genUrl('fresh green tree breathing oxygen bubbles')},
+  {word:'atmosphere', ru:'атмосфера', pron:"['ætməsfɪə]", img: genUrl('earth atmosphere from space glowing edge')},
+  {word:'land (verb)', ru:'приземляться', pron:"[lænd]", img: genUrl('airplane landing on a runway')},
+  {word:'sleet', ru:'мокрый снег', pron:"[sliːt]", img: genUrl('cold freezing sleet rain snow weather')},
+  {word:'wipe out', ru:'уничтожить', pron:"[waɪp aʊt]", img: genUrl('forest destroyed by fire wiped out')},
+  {word:'poison (verb)', ru:'отравлять', pron:"['pɔɪzn]", img: genUrl('toxic green poison liquid drop')},
+  {word:'reduce', ru:'уменьшать', pron:"[rɪ'djuːs]", img: genUrl('recycle symbol with a downward arrow green')},
+  {word:'harmful', ru:'вредный', pron:"['hɑːmfʊl]", img: genUrl('danger warning sign biohazard harmful')},
+  {word:'solar power', ru:'солнечная энергия', pron:"['səʊlə 'paʊə]", img: genUrl('solar panels reflecting sun green energy')},
+  {word:'heat', ru:'жара, нагревать', pron:"[hiːt]", img: genUrl('intense summer sun heatwave thermometer')},
+  {word:'plant flowers', ru:'сажать цветы', pron:"[plɑːnt 'flaʊəz]", img: genUrl('hands planting small flower in soil')},
+  {word:'recycle cans', ru:'перерабатывать банки', pron:"[riː'saɪkl kænz]", img: genUrl('aluminum cans in a green recycle bin')},
+  {word:'collect rubbish', ru:'собирать мусор', pron:"[kə'lekt 'rʌbɪʃ]", img: genUrl('volunteers collecting plastic rubbish bags')},
+  {word:'build nesting boxes', ru:'строить скворечники', pron:"[bɪld 'nɛstɪŋ 'bɒksɪz]", img: genUrl('wooden bird nesting box on a tree')},
+  {word:'teach the cycle of life', ru:'учить циклу жизни', pron:"[tiːʧ ðə 'saɪkl əv laɪf]", img: genUrl('teacher showing plant growing cycle nature')},
+  {word:'clean out a pond', ru:'вычистить пруд', pron:"[kliːn aʊt ə pɒnd]", img: genUrl('beautiful clean clear water garden pond')},
+  {word:'read a book about ecology', ru:'читать об экологии', pron:"[riːd... ɪ'kɒləʤi]", img: genUrl('open book with a small glowing tree growing from pages')},
+  {word:'a ladder', ru:'лестница', pron:"[ə 'lædə]", img: genUrl('tall wooden ladder leaning against a tree')},
+  {word:'a hammer and nails', ru:'молоток и гвозди', pron:"[ə 'hæmər ənd neɪlz]", img: genUrl('hammer and metal nails on wooden table')},
+  {word:'a spade', ru:'лопата', pron:"[ə speɪd]", img: genUrl('garden spade shovel stuck in soil')},
+  {word:'a watering can', ru:'лейка', pron:"[ə 'wɔːtərɪŋ kæn]", img: genUrl('green garden watering can pouring water')},
+  {word:'a rake', ru:'грабли', pron:"[ə reɪk]", img: genUrl('garden rake pulling autumn leaves')},
+  {word:'a net', ru:'сачок, сеть', pron:"[ə nɛt]", img: genUrl('butterfly catching net summer garden')},
+  {word:'gardening gloves', ru:'садовые перчатки', pron:"['gɑːdnɪŋ glʌvz]", img: genUrl('dirty green gardening gloves near a plant')},
+  {word:'a plastic bag', ru:'пластиковый пакет', pron:"[ə 'plæstɪk bæg]", img: genUrl('clear plastic shopping bag flying in wind')},
+  {word:'leave/left', ru:'покидать/оставлять', pron:"[liːv/lɛft]", img: genUrl('person walking away leaving nature trail')},
+  {word:'woods', ru:'лес', pron:"[wʊdz]", img: genUrl('beautiful dense green pine woods forest')},
+  {word:'tropical rainforest', ru:'тропический лес', pron:"['trɒpɪkəl 'reɪnfɒrɪst]", img: genUrl('lush green humid tropical rainforest jungle')},
+  {word:'desert', ru:'пустыня', pron:"['dɛzət]", img: genUrl('hot sandy sahara desert dunes')},
+  {word:'polar regions', ru:'полярные регионы', pron:"['pəʊlə 'riːʤənz]", img: genUrl('cold icy polar region with iceberg and snow')},
+  {word:'wetlands', ru:'болота', pron:"['wɛtləndz]", img: genUrl('marshy wetlands swamp with tall grass')},
+  {word:'savannah', ru:'саванна', pron:"[sə'vænə]", img: genUrl('african savannah grassland with acacia tree')}
 ];
+
+// --- ФУНКЦИЯ ДЛЯ СКАЧИВАНИЯ ВСЕХ КАРТИНОК В ZIP ---
+async function downloadAllImages() {
+  const btn = document.getElementById('download-zip-btn');
+  btn.disabled = true;
+  btn.style.background = "#475569";
+  
+  const zip = new JSZip();
+  const imgFolder = zip.folder("images"); // Создаст папку images внутри архива
+
+  for(let i = 0; i < vocab.length; i++) {
+    try {
+      btn.innerText = `⏳ Загрузка... ${i + 1} из ${vocab.length}`;
+      // Скачиваем картинку
+      const response = await fetch(vocab[i].img);
+      const blob = await response.blob();
+      
+      // Делаем красивое имя файла из английского слова (например "a power station" -> "a_power_station.jpg")
+      let filename = vocab[i].word.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '.jpg';
+      
+      // Добавляем в ZIP
+      imgFolder.file(filename, blob);
+    } catch (e) {
+      console.error("Ошибка при скачивании: ", vocab[i].word);
+    }
+  }
+
+  btn.innerText = "📦 Упаковка архива...";
+  
+  // Генерируем ZIP и отдаем пользователю
+  zip.generateAsync({type:"blob"}).then(function(content) {
+    saveAs(content, "Spotlight_7_Module_8_Images.zip");
+    btn.innerText = "✅ Успешно скачано!";
+    btn.style.background = "var(--success)";
+    
+    // Возвращаем кнопку в исходное состояние через 4 секунды
+    setTimeout(() => {
+      btn.innerText = "📥 Скачать все картинки (.zip)";
+      btn.style.background = "var(--text-dark)";
+      btn.disabled = false;
+    }, 4000);
+  });
+}
 
 function renderCards() {
   const container = document.getElementById('flashcards');
@@ -266,7 +312,7 @@ function renderCards() {
           </div>
           <div class="flip-back">
             <div class="ill-box">
-              <img src="${v.img}" alt="${v.word}" onerror="this.outerHTML='<div class=\\'emoji-fallback\\'>${v.fb}</div>'">
+              <img src="${v.img}" alt="${v.word}" onerror="this.outerHTML='<div class=\\'emoji-fallback\\'>🖼️</div>'">
             </div>
             <div class="vocab-trans">${v.ru}</div>
             <div class="vocab-pron">${v.pron}</div>
@@ -367,24 +413,7 @@ function renderTest() {
   testData.forEach((item, i) => {
     h += `<div class="question-wrap" style="background: white; padding: 25px; border-radius: 16px; margin-bottom: 25px; border: 1px solid #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.02);">`;
     h += `<div class="q-text" style="color: var(--text-dark);">${i + 1}. ${item.q}</div>`;
-    if (item.t === "input") { h += `<input type="text" id="test-q${i}" class="test-input" placeholder="Your answer...">`; } 
-    else if (item.t === "mcq") { h += `<div class="mcq-grid" id="test-q${i}">`; item.opt.forEach((opt, optIdx) => { h += `<button class="mcq-btn test-mcq" data-correct="${optIdx === item.corr}" onclick="selectTestMCQ(this)">${opt}</button>`; }); h += `</div>`; }
-    h += `</div>`;
-  });
-  cont.innerHTML = h;
-}
-renderTest();
-
-function selectTestMCQ(btn) {
-  const parent = btn.parentNode;
-  Array.from(parent.children).forEach(b => { b.style.borderColor = "#cbd5e1"; b.style.background = "white"; b.classList.remove('selected'); });
-  btn.style.borderColor = "var(--primary)"; btn.style.background = "#e0f2e9"; btn.classList.add('selected');
-}
-
-function calculateScore() {
-  let score = 0;
-  testData.forEach((item, i) => {
-    if (item.t === "input") { const val = cleanStr(document.getElementById(`test-q${i}`).value); if (item.ans.some(a => cleanStr(a) === val)) score++; } 
+    if (item.t === "input") { h += `<input type="document.getElementById(`test-q${i}`).value); if (item.ans.some(a => cleanStr(a) === val)) score++; } 
     else if (item.t === "mcq") { const selected = document.getElementById(`test-q${i}`).querySelector('.selected'); if (selected && selected.getAttribute('data-correct') === "true") score++; }
   });
   const total = testData.length; const percent = Math.round((score / total) * 100);
